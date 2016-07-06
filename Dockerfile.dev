@@ -1,0 +1,25 @@
+# reddit-mobile Dockerfile for local development
+
+FROM node:5.12
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV LIVERELOAD "true"
+ENV DEBUG_LEVEL info
+ENV PROCESSES "2"
+ENV API_PASS_THROUGH_HEADERS accept-language
+ENV LOGIN_PATH /login
+ENV MINIFY_ASSETS "false"
+ENV STATSD_DEBUG "true"
+
+# You'll want to override these at runtime
+ENV GOOGLE_ANALYTICS_ID UA-XXXXXX-1
+ENV OAUTH_CLIENT_ID XXXXXXXXX
+ENV SECRET_OAUTH_CLIENT_ID XXXXXXXXX
+ENV OAUTH_SECRET XXXXXXXXX
+
+VOLUME /src
+WORKDIR /src
+
+EXPOSE 8888
+# start the server
+CMD npm install && npm run dev-build && npm run dev-server

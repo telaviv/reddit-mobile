@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mobile-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+     - .:/src
+    ports:
+     - "127.0.0.1:8888:8888"
+    networks:
+      - mobile
+    environment:
+      # Inherit these from the host machine.
+      GOOGLE_ANALYTICS_ID:
+      OAUTH_CLIENT_ID:
+      SECRET_OAUTH_CLIENT_ID:
+      OAUTH_SECRET:
+networks:
+  mobile:
+    driver: bridge
