@@ -1,0 +1,34 @@
+# reddit-mobile Dockerfile for deploying on staging
+
+FROM ubuntu:14.04.4
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && \
+    apt-get install -y curl software-properties-common python-software-properties && \
+    apt-add-repository -y ppa:reddit/ppa && apt-get update
+
+RUN apt-get install -y nodejs git-core
+# The npm 2.x that comes with our PPA's nodejs fails to resolve dependencies
+# correctly for this project. npm 3.x+ can handle it. Force an upgrade until
+# we can re-evaluate packaging (or upgrade to and package nodejs 5.x + npm 3.x).
+RUN npm install npm -g
+
+ENV MINIFY_ASSETS "false"
+
+# You'll want to override these at runtime
+ENV GOOGLE_ANALYTICS_ID UA-XXXXXX-1
+ENV OAUTH_CLIENT_ID XXXXXXXXX
+ENV SECRET_OAUTH_CLIENT_ID XXXXXXXXX
+ENV OAUTH_SECRET XXXXXXXXX
+
+ADD package.json /src/package.json
+WORKDIR /src
+RUN npm install
+
+ADD . /src/
+RUN npm run build
+
+EXPOSE 8888
+# start the server
+CMD npm run server
