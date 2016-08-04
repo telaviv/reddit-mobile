@@ -356,6 +356,12 @@ function routes(app) {
     const sort = this.query.sort || SORTS.HOT;
     const time = listingTime(this.query, sort);
 
+    if (this.url.endsWith('/')) {
+      props.canonicalPath = this.url;
+    } else {
+      props.canonicalPath = `${this.url}/`;
+    }
+
     this.preServerRender = function indexPagePreRender() {
       // If we're on a next/prev for an invalid thing_id, so that no results are
       // sent back, we have a stale cache. Redirect back to the first page of
