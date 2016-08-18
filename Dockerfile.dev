@@ -20,6 +20,6 @@ ENV OAUTH_SECRET XXXXXXXXX
 VOLUME /src
 WORKDIR /src
 
-EXPOSE 8888
+EXPOSE 4444
 # start the server
 CMD npm install && npm run dev-build && npm run dev-server

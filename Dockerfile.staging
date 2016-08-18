@@ -14,9 +14,8 @@ RUN apt-get install -y nodejs git-core
 # we can re-evaluate packaging (or upgrade to and package nodejs 5.x + npm 3.x).
 RUN npm install npm -g
 
+# TODO: Do these make sense for staging?
 ENV MINIFY_ASSETS "false"
-
-# You'll want to override these at runtime
 ENV GOOGLE_ANALYTICS_ID UA-XXXXXX-1
 ENV OAUTH_CLIENT_ID XXXXXXXXX
 ENV SECRET_OAUTH_CLIENT_ID XXXXXXXXX
@@ -29,6 +28,6 @@ RUN npm install
 ADD . /src/
 RUN npm run build
 
-EXPOSE 8888
+EXPOSE 4444
 # start the server
 CMD npm run server
