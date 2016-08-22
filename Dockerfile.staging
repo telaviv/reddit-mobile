@@ -1,6 +1,6 @@
 # reddit-mobile Dockerfile for deploying on staging
 
-FROM reddit-nodejs:latest
+FROM reddit/reddit-nodejs:latest
 
 # TODO: Do these make sense for staging?
 ENV MINIFY_ASSETS "false"
