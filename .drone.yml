@@ -17,6 +17,9 @@ notify:
   slack:
     webhook_url: $$CI_SLACK_WEBHOOK_URL
     channel: ci-notifications
+  slack:
+    webhook_url: $$CI_SLACK_WEBHOOK_URL
+    channel: frontend-platform
 
 cache:
   mount:
