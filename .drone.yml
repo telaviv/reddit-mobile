@@ -7,9 +7,9 @@ build:
   pull: true
   commands:
     - npm install
-    - npm run build
     - npm run lint
     - npm run test
+    - npm run build
 
 publish:
   docker:
