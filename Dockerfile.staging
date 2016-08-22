@@ -9,12 +9,8 @@ ENV OAUTH_CLIENT_ID XXXXXXXXX
 ENV SECRET_OAUTH_CLIENT_ID XXXXXXXXX
 ENV OAUTH_SECRET XXXXXXXXX
 
-ADD package.json /src/package.json
-WORKDIR /src
-RUN npm install
-
 ADD . /src/
-RUN npm run build
+WORKDIR /src
 
 EXPOSE 4444
 # start the server

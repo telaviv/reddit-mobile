@@ -1,3 +1,17 @@
+cache:
+  mount:
+    - node_modules
+    - docker/image.tar
+
+build:
+  image: reddit/reddit-nodejs:latest
+  pull: true
+  commands:
+    - npm install
+    - npm build
+    - npm lint
+    - npm test
+
 publish:
   docker:
     username: $$DOCKERHUB_USERNAME
@@ -12,15 +26,10 @@ publish:
       destination: docker/image.tar
       tag: $$BRANCH
 
-# These plugins are triggered after a build failure/success.
 notify:
   slack:
     webhook_url: $$CI_SLACK_WEBHOOK_URL
     channel: ci-notifications
-  slack:
-    webhook_url: $$CI_SLACK_WEBHOOK_URL
-    channel: frontend-platform
-
-cache:
-  mount:
-    - docker/image.tar
+#  slack:
+#    webhook_url: $$CI_SLACK_WEBHOOK_URL
+#    channel: frontend-platform
