@@ -1,7 +1,6 @@
 cache:
   mount:
     - node_modules
-    - docker/image.tar
 
 build:
   image: reddit/reddit-nodejs:latest
@@ -20,11 +19,6 @@ publish:
     repo: reddit/reddit-mobile
     tag: $$BRANCH
     file: Dockerfile.staging
-    # Image layer caching.
-    load: docker/image.tar
-    save:
-      destination: docker/image.tar
-      tag: $$BRANCH
 
 notify:
   slack:
