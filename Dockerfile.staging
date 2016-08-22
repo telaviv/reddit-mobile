@@ -1,0 +1,17 @@
+# reddit-mobile Dockerfile for deploying on staging
+
+FROM reddit/reddit-nodejs:latest
+
+# TODO: Do these make sense for staging?
+ENV MINIFY_ASSETS "false"
+ENV GOOGLE_ANALYTICS_ID UA-XXXXXX-1
+ENV OAUTH_CLIENT_ID XXXXXXXXX
+ENV SECRET_OAUTH_CLIENT_ID XXXXXXXXX
+ENV OAUTH_SECRET XXXXXXXXX
+
+ADD . /src/
+WORKDIR /src
+
+EXPOSE 4444
+# start the server
+CMD npm run server
