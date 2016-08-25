@@ -34,6 +34,7 @@ const config = () => ({
 
   statsURL: process.env.STATS_URL || 'https://stats.redditmedia.com/',
   reduxActionLogSize: process.env.REDUX_ACTION_LOG_SIZE || 50,
+  rootCookieDomain: process.env.ROOT_COOKIE_DOMAIN || 'localhost',
   mediaDomain: process.env.MEDIA_DOMAIN || 'www.redditmedia.com',
   adsPath: process.env.ADS_PATH || '/api/request_promo.json',
   manifest: {},

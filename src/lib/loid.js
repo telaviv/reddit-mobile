@@ -1,3 +1,4 @@
+import globalConfig from 'config';
 import randomString from './randomString';
 
 export function setLoggedOutCookies(cookies, config) {
@@ -7,6 +8,7 @@ export function setLoggedOutCookies(cookies, config) {
   const options = {
     secure: config.https,
     secureProxy: config.httpsProxy,
+    domain: globalConfig.rootCookieDomain,
     httpOnly: false,
     maxAge: 1000 * 60 * 60 * 24 * 365 * 2,
   };

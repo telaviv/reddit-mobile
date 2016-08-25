@@ -19,6 +19,7 @@ import logoutproxy from 'server/session/logoutproxy';
 import registerproxy from 'server/session/registerproxy';
 import refreshproxy from 'server/session/refreshproxy';
 import dispatchSession from 'server/session/dispatchSession';
+import { clearDeprecatedCookies } from 'server/initialState/clearDeprecatedCookies';
 import { dispatchInitialCompact } from 'server/initialState/dispatchInitialCompact';
 import { dispatchInitialLoid } from 'server/initialState/dispatchInitialLoid';
 import { dispatchInitialMeta } from 'server/initialState/dispatchInitialMeta';
@@ -84,6 +85,7 @@ export function startServer() {
     reduxMiddleware,
     dispatchBeforeNavigation: async (ctx, dispatch/*, getState, utils*/) => {
       dispatchInitialShell(ctx, dispatch);
+      clearDeprecatedCookies(ctx);
       dispatchInitialLoid(ctx, dispatch);
       await dispatchSession(ctx, dispatch, ConfigedAPIOptions);
       dispatchInitialTheme(ctx, dispatch);
