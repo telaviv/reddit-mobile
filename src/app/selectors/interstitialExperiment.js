@@ -1,7 +1,8 @@
 import { flags } from 'app/constants';
 
 import { createSelector } from 'reselect';
-import { featuresSelector} from 'app/selectors/features';
+import { featuresSelector } from 'app/selectors/features';
+import { thumbnailSelector } from 'app/selectors/thumbnail';
 
 
 const {
@@ -18,7 +19,8 @@ const {
 
 export const interstitialExperimentSelector = createSelector(
   featuresSelector,
-  (features) => {
+  thumbnailSelector,
+  (features, { thumbnails }) => {
     const showTransparency = (
       features.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT) ||
       features.enabled(VARIANT_XPROMO_FP_TRANSPARENT)
@@ -26,22 +28,27 @@ export const interstitialExperimentSelector = createSelector(
     const showEmbeddedApp = (
       features.enabled(VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP)
     );
-    const showStaticAppPreview = (
-      features.enabled(VARIANT_XPROMO_FP_STATIC)
-    );
     const showGifAppPreview = (
       features.enabled(VARIANT_XPROMO_FP_GIF)
     );
     const showSpeedAppPreview = (
       features.enabled(VARIANT_XPROMO_FP_SPEED)
     );
-    const showThumbnailGrid = (
+    let showStaticAppPreview = (
+      features.enabled(VARIANT_XPROMO_FP_STATIC)
+    );
+    let showThumbnailGrid = (
       features.enabled(VARIANT_XPROMO_SUBREDDIT) && ! (
         features.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT) ||
         features.enabled(VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP) ||
         features.enabled(VARIANT_XPROMO_SUBREDDIT_LISTING)
       )
     );
+
+    if (showThumbnailGrid && thumbnails === null) {
+      showThumbnailGrid = false;
+      showStaticAppPreview = true;
+    }
     return {
       showTransparency,
       showEmbeddedApp,
