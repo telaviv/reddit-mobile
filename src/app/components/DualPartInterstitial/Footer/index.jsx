@@ -41,6 +41,7 @@ const DualPartInterstitialFooter = (props) => {
   const {
     subredditName,
     showThumbnailGrid,
+    showSubredditPosts,
     showSpeedAppPreview,
     urls,
     onClose,
@@ -53,7 +54,7 @@ const DualPartInterstitialFooter = (props) => {
   if (showThumbnailGrid) {
     subtitleText = `${ pageName } is better in the app. ` +
                    'We hate to intrude, but you deserve the best.';
-  } else if (!showSpeedAppPreview) {
+  } else if (!(showSpeedAppPreview || showSubredditPosts)) {
     subtitleText = `View ${ pageName } in the app because you deserve the best.`;
   } else {
     subtitleText = '';

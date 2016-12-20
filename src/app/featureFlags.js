@@ -32,7 +32,7 @@ const {
   VARIANT_XPROMO_FP_TRANSPARENT,
   VARIANT_XPROMO_SUBREDDIT_TRANSPARENT,
   VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP,
-  VARIANT_XPROMO_SUBREDDIT_LISTING,
+  VARIANT_XPROMO_SUBREDDIT_POSTS,
   VARIANT_XPROMO_CLICK,
   VARIANT_TITLE_EXPANDO,
   VARIANT_MIXED_VIEW,
@@ -226,14 +226,14 @@ const config = {
       ] },
     ],
   },
-  [VARIANT_XPROMO_SUBREDDIT_LISTING]: {
+  [VARIANT_XPROMO_SUBREDDIT_POSTS]: {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['listing'] },
       { allowNSFW: false },
       { or: [
-        { url: 'xpromosubredditlisting' },
-        { variant: 'mweb_xpromo_interstitial_listing_v2:listing' },
+        { url: 'xpromosubredditposts' },
+        { variant: 'mweb_xpromo_interstitial_listing_v2:posts' },
       ] },
     ],
   },

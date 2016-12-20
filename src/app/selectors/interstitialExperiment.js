@@ -9,7 +9,7 @@ const {
   VARIANT_XPROMO_SUBREDDIT,
   VARIANT_XPROMO_SUBREDDIT_TRANSPARENT,
   VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP,
-  VARIANT_XPROMO_SUBREDDIT_LISTING,
+  VARIANT_XPROMO_SUBREDDIT_POSTS,
   VARIANT_XPROMO_FP_GIF,
   VARIANT_XPROMO_FP_STATIC,
   VARIANT_XPROMO_FP_SPEED,
@@ -24,6 +24,9 @@ export const interstitialExperimentSelector = createSelector(
     const showTransparency = (
       features.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT) ||
       features.enabled(VARIANT_XPROMO_FP_TRANSPARENT)
+    );
+    const showSubredditPosts = (
+      features.enabled(VARIANT_XPROMO_SUBREDDIT_POSTS)
     );
     const showEmbeddedApp = (
       features.enabled(VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP)
@@ -41,7 +44,7 @@ export const interstitialExperimentSelector = createSelector(
       features.enabled(VARIANT_XPROMO_SUBREDDIT) && ! (
         features.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT) ||
         features.enabled(VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP) ||
-        features.enabled(VARIANT_XPROMO_SUBREDDIT_LISTING)
+        features.enabled(VARIANT_XPROMO_SUBREDDIT_POSTS)
       )
     );
 
@@ -52,6 +55,7 @@ export const interstitialExperimentSelector = createSelector(
     return {
       showTransparency,
       showEmbeddedApp,
+      showSubredditPosts,
       showStaticAppPreview,
       showGifAppPreview,
       showSpeedAppPreview,

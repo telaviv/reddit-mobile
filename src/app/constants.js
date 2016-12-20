@@ -96,7 +96,7 @@ export const flags = {
   VARIANT_XPROMO_FP_SPEED: 'experimentXPromoFrontPageSpeed',
   VARIANT_XPROMO_FP_TRANSPARENT: 'experimentXPromoFrontPageTransparent',
   VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP: 'experimentXPromoSubredditEmbeddedApp',
-  VARIANT_XPROMO_SUBREDDIT_LISTING: 'experimentXPromoSubredditListing',
+  VARIANT_XPROMO_SUBREDDIT_POSTS: 'experimentXPromoSubredditPosts',
   VARIANT_XPROMO_SUBREDDIT_TRANSPARENT: 'experimentXPromoSubredditTransparent',
   VARIANT_XPROMO_LISTING: 'experimentXPromoListing',
   VARIANT_XPROMO_SUBREDDIT: 'experimentXPromoSubreddit',
