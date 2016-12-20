@@ -44,6 +44,7 @@ const config = {
   [SMARTBANNER]: {
     and: [
       { allowedPages: ['index', 'listing'] },
+      { allowNSFW: false },
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
     ],
   },
@@ -140,6 +141,7 @@ const config = {
     and: [
       { notOptedOut: 'xpromoInterstitial' },
       { allowedPages: ['listing'] },
+      { allowNSFW: false },
       { or: [
         { and: [
           { allowedDevices: [ANDROID] },
@@ -206,6 +208,7 @@ const config = {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['listing'] },
+      { allowNSFW: false },
       { or: [
         { url: 'xpromosubreddittransparent' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:transparent' },
@@ -216,6 +219,7 @@ const config = {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['listing'] },
+      { allowNSFW: false },
       { or: [
         { url: 'xpromosubredditembedded' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:embedded' },
@@ -226,6 +230,7 @@ const config = {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['listing'] },
+      { allowNSFW: false },
       { or: [
         { url: 'xpromosubredditlisting' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:listing' },
@@ -451,6 +456,25 @@ flags.addRule('pageBucketPercent', function(config) {
     ) % 1000;
 
   return val <= 10 * percentage;
+});
+
+flags.addRule('allowNSFW', function(allowed) {
+  const { subreddits }  = this.state;
+  const subredditName = getSubreddit(this.state);
+
+  if (allowed) {
+    return true;
+  }
+
+  if (!subredditName) {
+    return false;
+  }
+
+  const subredditInfo = subreddits[subredditName.toLowerCase()];
+  if (subredditInfo) {
+    return !subredditInfo.over18;
+  }
+  return false;
 });
 
 export default flags;

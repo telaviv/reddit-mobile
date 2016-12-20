@@ -7,36 +7,12 @@ import getSubreddit from 'lib/getSubredditFromState';
 const THUMBNAIL_THRESHOLD = 9;
 
 export const thumbnailSelector = createSelector(
-  getSubreddit,
-  state => state.subreddits,
   state => state.postsLists,
   state => state.posts,
   state => state.modal,
   state => state.platform.currentPage,
-  (
-    subredditName,
-    subreddits,
-    postsLists,
-    posts,
-    modal,
-    currentPage,
-  ) => {
+  (postsLists, posts, modal, currentPage) => {
     let thumbnails;
-    // let's make the asssumption that everything is over18 until we
-    // see differently.
-    let over18 = true;
-
-    if (!subredditName) {
-      // This is the case for the / and theoretically nothing else.
-      over18 = false;
-
-    } else {
-      const subredditInfo = subreddits[subredditName.toLowerCase()];
-      if (subredditInfo) {
-        over18 = subredditInfo.over18;
-      }
-    }
-
     // For subreddit listings, we use the listing data we're already
     // grabbing and return the thumbnails if we have enough
     let hash = null;
@@ -55,7 +31,7 @@ export const thumbnailSelector = createSelector(
       // We have posts!  Look for thumbails, stripping out nsfw, stickied, etc.
       const uuids = postsList.results.map(item => item.uuid);
       const allThumbs = uuids
-        .filter(item => !(over18 || posts[item].over18))
+        .filter(item => !posts[item].over18)
         .filter(item => !posts[item].stickied)
         .map(item => posts[item].thumbnail)
         .filter(item => !!item && item.startsWith('http'));

@@ -88,7 +88,6 @@ const selector = createSelector(
   getSubreddit,
   interstitialExperimentSelector,
   (subredditName, experiments) => {
-    // TODO: ban NSFW subreddits.
     return { subredditName, ...experiments };
   }
 );
