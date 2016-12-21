@@ -11,11 +11,12 @@ import { interstitialExperimentSelector } from 'app/selectors/interstitialExperi
 
 
 const TransparentOverlay = props => {
+  const { noColor } = props;
+  const overlayModifier = noColor ? 'no-color' : '';
   return (
     <div className='TransparentOverlay'>
-      <div className='TransparentOverlay__overlay'></div>
+      <div className={ `TransparentOverlay__overlay ${overlayModifier}` }></div>
       <div className='TransparentOverlay__childContainer'>
-        <TopNav />
         { props.children }
       </div>
     </div>
@@ -36,7 +37,7 @@ const DualPartInterstitialHeader = props => {
 
   let innerContent, backgroundClass;
 
-  if (showThumbnailGrid)
+  if (showThumbnailGrid) {
     backgroundClass = 'plain';
   } else {
     backgroundClass = 'colorful';
@@ -45,14 +46,17 @@ const DualPartInterstitialHeader = props => {
   if (showTransparency) {
     innerContent = (
       <TransparentOverlay>
+        <TopNav />
         { children }
       </TransparentOverlay>
     );
   } else if (showEmbeddedApp) {
     innerContent = (
-      <IPhoneAppPreview content='embedded'>
-        { children }
-      </IPhoneAppPreview>
+      <TransparentOverlay noColor={ true } >
+        <IPhoneAppPreview content='embedded'>
+          { children }
+        </IPhoneAppPreview>
+      </TransparentOverlay>
     );
   } else if (showSubredditPosts) {
     innerContent = <CompactSubreddit />;
