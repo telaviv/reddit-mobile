@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 
 import { paramsToPostsListsId } from 'app/models/PostsList';
 import PostsFromSubreddit from 'app/router/handlers/PostsFromSubreddit';
-import getSubreddit from 'lib/getSubredditFromState';
 
 const THUMBNAIL_THRESHOLD = 9;
 

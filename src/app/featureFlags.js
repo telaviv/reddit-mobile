@@ -459,7 +459,7 @@ flags.addRule('pageBucketPercent', function(config) {
 });
 
 flags.addRule('allowNSFW', function(allowed) {
-  const { subreddits }  = this.state;
+  const { subreddits } = this.state;
   const subredditName = getSubreddit(this.state);
 
   if (allowed) {

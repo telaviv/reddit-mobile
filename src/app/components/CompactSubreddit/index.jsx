@@ -14,17 +14,17 @@ const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 
 const getRandomSnoo = () => {
   const value = getRandomInt(1, 9);
   return `/img/snoo${ value }.png`;
-}
+};
 
 const MiniPost = (props) => {
   const { post } = props;
   if (post === null) {
-    return <div className='MiniPost empty' />
+    return <div className='MiniPost empty' />;
   }
   let backgroundUrl;
   if (post.thumbnail && post.thumbnail.startsWith('http')) {
@@ -43,8 +43,8 @@ const MiniPost = (props) => {
         { post.title }
       </div>
     </div>
-  )
-}
+  );
+};
 
 
 const CompactSubreddit = (props) => {
@@ -53,7 +53,8 @@ const CompactSubreddit = (props) => {
   if (bannerImage) {
     banner = (
       <div className='CompactSubreddit__banner--community'
-           style={ { backgroundImage: `url(${bannerImage})` } } />
+           style={ { backgroundImage: `url(${bannerImage})` } }
+      />
     );
   } else {
     banner = (
@@ -76,7 +77,7 @@ const CompactSubreddit = (props) => {
       </div>
     </div>
   );
-}
+};
 
 const forceLength = (array, length) => {
   const out = [];
@@ -88,7 +89,7 @@ const forceLength = (array, length) => {
     }
   }
   return out;
-}
+};
 
 export const selector = createSelector(
   getSubreddit,
@@ -114,7 +115,7 @@ export const selector = createSelector(
       allPosts = uuids
         .map(uuid => posts[uuid])
         .filter(post => !post.over18)
-        .filter(post => !post.stickied)
+        .filter(post => !post.stickied);
     }
     const bannerImage = subreddits[subredditName] ?
                         subreddits[subredditName].bannerImage : null;
