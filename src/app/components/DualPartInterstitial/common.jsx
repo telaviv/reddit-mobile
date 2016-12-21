@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-curly-spacing */
 
 import React from 'react';
-import { createStructuredSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
 import { getDevice } from 'lib/getDeviceFromState';
 import { getBranchLink } from 'lib/smartBannerState';
@@ -44,7 +44,10 @@ function getUrls(state) {
   ];
 }
 
-export const selector = createStructuredSelector({
-  urls: getUrls,
-  device: getDevice,
-});
+export const selector = createSelector(
+  getUrls,
+  getDevice,
+  (urls, device) => {
+    return { urls, device };
+  }
+);

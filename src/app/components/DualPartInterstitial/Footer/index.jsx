@@ -22,8 +22,8 @@ const List = (props) => {
   return (
     <div className='DualPartInterstitialFooter__bulletList'>
       <div className='DualPartInterstitialFooter__bulletItem no-feature'>
-        <div className='DualPartInterstitialFooter__bulletIcon icon icon-controversial' />
-        <div>50% Faster</div>
+        <span className='DualPartInterstitialFooter__bulletIcon icon icon-controversial' />
+        50% Faster
       </div>
       <div className='DualPartInterstitialFooter__bulletItem no-feature'>
         <span className='DualPartInterstitialFooter__bulletIcon icon icon-compact' />

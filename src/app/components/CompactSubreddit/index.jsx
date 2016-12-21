@@ -3,6 +3,7 @@ import './styles.less';
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import random from 'lodash/random';
 
 import Logo from 'app/components/Logo';
 import SnooIcon from 'app/components/SnooIcon';
@@ -10,14 +11,8 @@ import { paramsToPostsListsId } from 'app/models/PostsList';
 import PostsFromSubreddit from 'app/router/handlers/PostsFromSubreddit';
 import getSubreddit from 'lib/getSubredditFromState';
 
-const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-};
-
 const getRandomSnoo = () => {
-  const value = getRandomInt(1, 9);
+  const value = random(1, 9);
   return `/img/snoo${ value }.png`;
 };
 
@@ -52,13 +47,13 @@ const CompactSubreddit = (props) => {
   let banner;
   if (bannerImage) {
     banner = (
-      <div className='CompactSubreddit__banner--community'
+      <div className='CompactSubreddit__banner__community'
            style={ { backgroundImage: `url(${bannerImage})` } }
       />
     );
   } else {
     banner = (
-      <div className='CompactSubreddit__banner--generic' >
+      <div className='CompactSubreddit__banner__generic' >
         <SnooIcon />
         <Logo />
       </div>
