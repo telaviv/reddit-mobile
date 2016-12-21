@@ -54,10 +54,26 @@ const DualPartInterstitialFooter = (props) => {
   if (showThumbnailGrid) {
     subtitleText = `${ pageName } is better in the app. ` +
                    'We hate to intrude, but you deserve the best.';
-  } else if (!(showSpeedAppPreview || showSubredditPosts)) {
-    subtitleText = `View ${ pageName } in the app because you deserve the best.`;
-  } else {
+  } else if (showSubredditPosts) {
+    subtitleText = 'View in the Reddit App';
+  } else if (showSpeedAppPreview) {
     subtitleText = '';
+  } else {
+    subtitleText = `View ${ pageName } in the app because you deserve the best.`;
+  }
+
+  let bulletList;
+  if (showSpeedAppPreview) {
+    bulletList = (
+      <div className='DualPartInterstitialFooter__bulletItem feature-speed'>
+        <div className='DualPartInterstitialFooter__bulletIcon icon icon-controversial' />
+        <div>Browse Reddit 50% Faster</div>
+      </div>
+    );
+  } else if (showSubredditPosts) {
+    bulletList = null;
+  } else {
+    bulletList = <List />;
   }
 
   const buttonText = 'Continue';
@@ -68,7 +84,7 @@ const DualPartInterstitialFooter = (props) => {
         <div className='DualPartInterstitialFooter__subtitle'>
           { subtitleText }
         </div>
-        <List featureSpeed={ showSpeedAppPreview }/>
+        { bulletList }
         <div className='DualPartInterstitialFooter__button' onClick={ navigator(urls[0]) } >
           { buttonText }
         </div>
