@@ -180,7 +180,7 @@ const config = {
       { allowedPages: ['index'] },
       { or: [
         { url: 'xpromofptransparent' },
-        { variant: 'mweb_xpromo_interstitial_fp_v2:embedded' },
+        { variant: 'mweb_xpromo_interstitial_fp_v2:transparent' },
       ] },
     ],
   },
