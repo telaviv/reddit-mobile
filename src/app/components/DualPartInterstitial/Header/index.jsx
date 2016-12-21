@@ -30,16 +30,16 @@ const DualPartInterstitialHeader = props => {
     showStaticAppPreview,
     showSpeedAppPreview,
     showGifAppPreview,
+    showThumbnailGrid,
     children,
   } = props;
 
   let innerContent, backgroundClass;
 
-  if (showEmbeddedApp || showStaticAppPreview || showSubredditPosts ||
-      showSpeedAppPreview || showGifAppPreview) {
-    backgroundClass = 'colorful';
-  } else {
+  if (showThumbnailGrid)
     backgroundClass = 'plain';
+  } else {
+    backgroundClass = 'colorful';
   }
 
   if (showTransparency) {
