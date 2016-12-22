@@ -51,7 +51,7 @@ const config = () => ({
   apiHeaders: parseSemiColonKeyValues(process.env.API_HEADERS),
   apiPassThroughHeaders: parseSemiColonList(process.env.API_PASS_THROUGH_HEADERS),
 
-  assetPath: process.env.STATIC_BASE || '',
+  assetPath: "https://www.redditstatic.com/mweb2x",
 
   origin: process.env.ORIGIN || 'http://localhost:4444',
   port: process.env.PORT || 4444,
