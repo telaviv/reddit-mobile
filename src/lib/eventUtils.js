@@ -8,6 +8,7 @@ import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
 import * as gtm from 'lib/gtm';
+import { BANNER_LAST_CLOSED, BANNER_SCROLLED_PASSED } from 'lib/smartBannerState';
 
 const ID_REGEX = /(?:t\d+_)?(.*)/;
 
@@ -50,7 +51,7 @@ export function getUserInfoOrLoid(state) {
     };
   }
 
-  const loid = state.loid; 
+  const loid = state.loid;
   return {
     'loid': loid.loid,
     'loid_created': loid.loidCreated,
@@ -60,6 +61,18 @@ export function getUserInfoOrLoid(state) {
 function getDomain(referrer, meta) {
   const x = url.parse(referrer);
   return x.host || meta.domain;
+}
+
+export function getBannerInfo() {
+  const info = {};
+  console.log('scrolled passed', BANNER_SCROLLED_PASSED);
+  if (localStorage.getItem(BANNER_LAST_CLOSED)) {
+    info.banner_closed = 'true';
+  }
+  if (localStorage.getItem(BANNER_SCROLLED_PASSED)) {
+    info.banner_scrolled_passed = 'true';
+  }
+  return info;
 }
 
 export function getBasePayload(state) {
@@ -78,6 +91,7 @@ export function getBasePayload(state) {
     dnt: !!window.DO_NOT_TRACK,
     compact_view: compact,
     adblock: hasAdblock(),
+    ...getBannerInfo(),
     ...getUserInfoOrLoid(state),
   };
 
@@ -113,7 +127,7 @@ function trackCrawlEvent(state, additionalEventData) {
   const payload = {
     params_app: 'mweb',
     http_response_code: state.platform.currentPage.status,
-    // (skrisman | 10.17.2016) consider how we can get a response_time here
+7    // (skrisman | 10.17.2016) consider how we can get a response_time here
     // (skrisman | 10.17.2016) is there a concept like "server" that we have?
     crawler_name: crawler,
     method,

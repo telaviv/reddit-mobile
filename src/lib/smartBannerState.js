@@ -6,6 +6,9 @@ import { getDevice, IOS_DEVICES, ANDROID } from 'lib/getDeviceFromState';
 import * as constants from 'app/constants';
 import features from 'app/featureFlags';
 
+export const BANNER_LAST_CLOSED = 'bannerLastClosed';
+export const BANNER_SCROLLED_PASSED = 'bannerScrollPassed';
+
 const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
 
 const { USE_BRANCH } = constants.flags;
@@ -114,5 +117,11 @@ export function markBannerClosed() {
   if (!localStorageAvailable()) { return false; }
 
   // note that we dismissed the banner
-  localStorage.setItem('bannerLastClosed', new Date());
+  localStorage.setItem(BANNER_LAST_CLOSED, new Date());
+}
+
+export function markBannerScrolledPassed() {
+  if (!localStorageAvailable()) { return false; }
+
+  localStorage.setItem(BANNER_SCROLLED_PASSED, true);
 }
