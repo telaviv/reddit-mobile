@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as smartBannerActions from 'app/actions/smartBanner';
-import { markBannerScrolledPassed } from 'lib/smartBannerState';
+import { markXPromoScrolledPassed } from 'lib/smartBannerState';
 
 
 const T = React.PropTypes;
@@ -29,7 +29,8 @@ class XPromoWrapper extends React.Component {
     // "scrolling passed" the interstitial.
     // note the referencing of window
     if (window.pageYOffset > window.innerHeight / 2) {
-      markBannerScrolledPassed();
+      markXPromoScrolledPassed();
+      window.removeEventListener('scroll', this.onScroll);
     }
   }
 

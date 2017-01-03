@@ -1,4 +1,4 @@
-import { markBannerClosed, shouldShowBanner } from 'lib/smartBannerState';
+import { markXPromoClosed, shouldShowXPromo } from 'lib/smartBannerState';
 import { trackPreferenceEvent } from 'lib/eventUtils';
 
 export const SHOW = 'SMARTBANNER__SHOW';
@@ -18,7 +18,7 @@ const EXTERNAL_PREF_NAME = 'hide_mweb_xpromo_banner';
 // element is the interface element through which the user dismissed the
 // crosspromo experience.
 export const close = () => async (dispatch, getState) => {
-  markBannerClosed();
+  markXPromoClosed();
   dispatch(hide());
 
   // We use a separate externally-visible name/value for the preference for
@@ -33,7 +33,7 @@ export const close = () => async (dispatch, getState) => {
 };
 
 export const checkAndSet = () => async (dispatch) => {
-  if (shouldShowBanner()) {
+  if (shouldShowXPromo()) {
     dispatch(show());
   }
 };

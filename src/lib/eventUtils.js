@@ -7,8 +7,9 @@ import { ADBLOCK_TEST_ID } from 'app/constants';
 import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
+import localStorageAvailable from 'lib/localStorageAvailable';
 import * as gtm from 'lib/gtm';
-import { BANNER_LAST_CLOSED, BANNER_SCROLLED_PASSED } from 'lib/smartBannerState';
+import { XPROMO_LAST_CLOSED, XPROMO_SCROLLED_PASSED } from 'lib/smartBannerState';
 
 const ID_REGEX = /(?:t\d+_)?(.*)/;
 
@@ -64,13 +65,14 @@ function getDomain(referrer, meta) {
 }
 
 export function getBannerInfo() {
+  if (!localStorageAvailable()) { return; }
+
   const info = {};
-  console.log('scrolled passed', BANNER_SCROLLED_PASSED);
-  if (localStorage.getItem(BANNER_LAST_CLOSED)) {
-    info.banner_closed = 'true';
+  if (localStorage.getItem(XPROMO_LAST_CLOSED)) {
+    info.banner_closed = true;
   }
-  if (localStorage.getItem(BANNER_SCROLLED_PASSED)) {
-    info.banner_scrolled_passed = 'true';
+  if (localStorage.getItem(XPROMO_SCROLLED_PASSED)) {
+    info.banner_scrolled_passed = true;
   }
   return info;
 }
@@ -127,7 +129,7 @@ function trackCrawlEvent(state, additionalEventData) {
   const payload = {
     params_app: 'mweb',
     http_response_code: state.platform.currentPage.status,
-7    // (skrisman | 10.17.2016) consider how we can get a response_time here
+    // (skrisman | 10.17.2016) consider how we can get a response_time here
     // (skrisman | 10.17.2016) is there a concept like "server" that we have?
     crawler_name: crawler,
     method,

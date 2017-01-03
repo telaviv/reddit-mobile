@@ -6,8 +6,9 @@ import { getDevice, IOS_DEVICES, ANDROID } from 'lib/getDeviceFromState';
 import * as constants from 'app/constants';
 import features from 'app/featureFlags';
 
-export const BANNER_LAST_CLOSED = 'bannerLastClosed';
-export const BANNER_SCROLLED_PASSED = 'bannerScrollPassed';
+// this is set to bannerLastClosed for legacy reasons.
+export const XPROMO_LAST_CLOSED = 'bannerLastClosed';
+export const XPROMO_SCROLLED_PASSED = 'xPromoScrollPassed';
 
 const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
 
@@ -94,7 +95,7 @@ export function getDeepLink(state) {
   }
 }
 
-export function shouldShowBanner() {
+export function shouldShowXPromo() {
   // Most of the decision for showing a cross-promo component will happen in
   // the featureFlags component, but we have a couple of things to consider
   // here.
@@ -113,15 +114,15 @@ export function shouldShowBanner() {
   return true;
 }
 
-export function markBannerClosed() {
-  if (!localStorageAvailable()) { return false; }
+export function markXPromoClosed() {
+  if (!localStorageAvailable()) { return; }
 
   // note that we dismissed the banner
-  localStorage.setItem(BANNER_LAST_CLOSED, new Date());
+  localStorage.setItem(XPROMO_LAST_CLOSED, new Date());
 }
 
-export function markBannerScrolledPassed() {
-  if (!localStorageAvailable()) { return false; }
+export function markXPromoScrolledPassed() {
+  if (!localStorageAvailable()) { return; }
 
-  localStorage.setItem(BANNER_SCROLLED_PASSED, true);
+  localStorage.setItem(XPROMO_SCROLLED_PASSED, true);
 }

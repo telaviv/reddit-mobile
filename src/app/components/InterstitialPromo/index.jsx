@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { redirect } from '@r/platform/actions';
 
-import { markBannerClosed } from 'lib/smartBannerState';
+import { markXPromoClosed } from 'lib/smartBannerState';
 
 import { flags } from 'app/constants';
 import featureFlags from 'app/featureFlags';
@@ -157,7 +157,7 @@ const selector = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   onClose: () => dispatch(smartBannerActions.close()),
   navigator: (url) => (() => {
-    markBannerClosed();
+    markXPromoClosed();
     dispatch(redirect(url));
   }),
 });

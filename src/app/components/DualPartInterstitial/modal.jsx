@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { redirect } from '@r/platform/actions';
 
-import { markBannerClosed } from 'lib/smartBannerState';
+import { markXPromoClosed } from 'lib/smartBannerState';
 import * as smartBannerActions from 'app/actions/smartBanner';
 import * as modalActions from 'app/actions/modal';
 import XPromoWrapper from 'app/components/XPromoWrapper';
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(smartBannerActions.close());
   },
   navigator: (url) => (() => {
-    markBannerClosed();
+    markXPromoClosed();
     dispatch(redirect(url));
   }),
 });
