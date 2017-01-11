@@ -218,16 +218,11 @@ const config = {
       ] },
     ],
   },
-  [VARIANT_XPROMO_FP_GIF]: {
-    and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
-      { allowedPages: ['index'] },
-      { or: [
-        { url: 'xpromofpgif' },
-        { variant: 'mweb_xpromo_interstitial_fp_v2:gif' },
-      ] },
-    ],
-  },
+  // As a temporary hack, we are showing the list treatment also to users
+  // bucketed into the control groups. We want to continue to get bucketing
+  // events, so we know when a user has been exposed to this feature, and we
+  // want to show 100% of users the list treatment. We can't eliminate control
+  // groups in the API's bucketing mechanism, so we use this hack instead.
   [VARIANT_XPROMO_FP_TRANSPARENT]: {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
@@ -235,29 +230,22 @@ const config = {
       { or: [
         { url: 'xpromofptransparent' },
         { variant: 'mweb_xpromo_interstitial_fp_v2:transparent' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_FP_STATIC]: {
-    and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
-      { allowedPages: ['index'] },
-      { or: [
-        { url: 'xpromofpstatic' },
+        { variant: 'mweb_xpromo_interstitial_fp_v2:gif' },
         { variant: 'mweb_xpromo_interstitial_fp_v2:static' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_FP_SPEED]: {
-    and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
-      { allowedPages: ['index'] },
-      { or: [
-        { url: 'xpromofpspeed' },
         { variant: 'mweb_xpromo_interstitial_fp_v2:speed' },
+        { variant: 'mweb_xpromo_interstitial_fp_v2:control_1' },
+        { variant: 'mweb_xpromo_interstitial_fp_v2:control_2' },
       ] },
     ],
   },
+  [VARIANT_XPROMO_FP_GIF]: false,
+  [VARIANT_XPROMO_FP_STATIC]: false,
+  [VARIANT_XPROMO_FP_SPEED]: false,
+  // As a temporary hack, we are showing the list treatment also to users
+  // bucketed into the control groups. We want to continue to get bucketing
+  // events, so we know when a user has been exposed to this feature, and we
+  // want to show 100% of users the list treatment. We can't eliminate control
+  // groups in the API's bucketing mechanism, so we use this hack instead.
   [VARIANT_XPROMO_SUBREDDIT_TRANSPARENT]: {
     and: [
       { allowedDevices: IOS_DEVICES.concat(ANDROID) },
@@ -266,31 +254,15 @@ const config = {
       { or: [
         { url: 'xpromosubreddittransparent' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:transparent' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP]: {
-    and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { or: [
-        { url: 'xpromosubredditembedded' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:embedded' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_SUBREDDIT_POSTS]: {
-    and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { or: [
-        { url: 'xpromosubredditposts' },
         { variant: 'mweb_xpromo_interstitial_listing_v2:posts' },
+        { variant: 'mweb_xpromo_interstitial_listing_v2:control_1' },
+        { variant: 'mweb_xpromo_interstitial_listing_v2:control_2' },
       ] },
     ],
   },
+  [VARIANT_XPROMO_SUBREDDIT_EMBEDDED_APP]: false,
+  [VARIANT_XPROMO_SUBREDDIT_POSTS]: false,
   [VARIANT_XPROMO_CLICK]: false,
   [VARIANT_TITLE_EXPANDO]: {
     and: [
