@@ -17,11 +17,11 @@ class XPromoWrapper extends React.Component {
     // Indicate that we've displayed a crosspromotional UI, so we don't keep
     // showing them during this browsing session.
     this.props.recordXPromoShown();
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
   onScroll() {
@@ -30,7 +30,7 @@ class XPromoWrapper extends React.Component {
     // note the referencing of window
     if (window.pageYOffset > window.innerHeight / 2) {
       markXPromoScrolledPassed();
-      window.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('scroll', this.onScroll.bind(this));
     }
   }
 
