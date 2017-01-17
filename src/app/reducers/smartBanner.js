@@ -1,12 +1,14 @@
 import merge from '@r/platform/merge';
-import * as platformActions from '@r/platform/actions';
 
 import * as xpromoActions from 'app/actions/xpromo';
+import * as loginActions from 'app/actions/login';
+import { markBannerClosed } from 'lib/smartBannerState';
 
 export const DEFAULT = {
   showBanner: false,
   haveShownXPromo: false,
   xPromoShownUrl: null,
+  loginRequired: false,
 };
 
 export default function(state=DEFAULT, action={}) {
@@ -29,13 +31,27 @@ export default function(state=DEFAULT, action={}) {
       });
     }
 
-    case platformActions.NAVIGATE_TO_URL: {
-      if (state.haveShownXPromo) {
+    case xpromoActions.LOGIN_REQUIRED: {
+      return merge(state, {
+        loginRequired: true,
+      });
+    }
+
+    case xpromoActions.PROMO_CLICKED: {
+      markBannerClosed();
+      return merge(state, {
+        showBanner: false,
+      });
+    }
+
+    case loginActions.LOGGED_IN: {
+      if (state.loginRequired) {
+        markBannerClosed();
         return merge(state, {
           showBanner: false,
+          loginRequired: false,
         });
       }
-
       return state;
     }
 

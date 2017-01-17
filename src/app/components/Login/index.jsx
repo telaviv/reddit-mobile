@@ -1,16 +1,20 @@
+/* eslint dot-notation: 0 */
 import 'app/components/LoginRegistrationForm/styles.less';
 
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { redirect } from '@r/platform/actions';
 import { METHODS } from '@r/platform/router';
 import { Form, Anchor, BackAnchor } from '@r/platform/components';
 
 import { loginErrors, genericErrors } from 'app/constants';
 
 import * as sessionActions from 'app/actions/session';
+import * as xpromoActions from 'app/actions/xpromo';
 
 import goBackDest from 'lib/goBackDest';
+import { markBannerClosed } from 'lib/smartBannerState';
 
 import SnooIcon from 'app/components/SnooIcon';
 import LoginInput from 'app/components/LoginRegistrationForm/Input';
@@ -77,8 +81,25 @@ class Login extends React.Component {
     );
   }
 
+  onAppPromoClick() {
+    const { nativeAppNavigator, nativeAppLink } = this.props;
+    markBannerClosed();
+    nativeAppNavigator(nativeAppLink);
+  }
+
+  renderAppPromo() {
+    const onAppPromoClick = this.onAppPromoClick.bind(this);
+    return (
+      <div className='Login__app-promo'>
+        <p className='or'>or</p>
+        <SquareButton onClick={ onAppPromoClick } text='Continue in the app'/>
+        <p className='subtext'>(no login required)</p>
+      </div>
+    );
+  }
+
   render() {
-    const { session, platform } = this.props;
+    const { session, platform, displayAppPromo } = this.props;
     const { isPasswordField, password, username } = this.state;
     const passwordFieldType = isPasswordField ? 'password' : 'text';
     const backDest = goBackDest(platform, ['/login', '/register']);
@@ -159,10 +180,15 @@ class Login extends React.Component {
               : this.renderEye()
             }
           </LoginInput>
+          <LoginInput
+              name='redirectTo'
+              type='hidden'
+              value={ backDest } />
           <div className='Login__submit'>
             <SquareButton text='LOG IN' type='submit'/>
           </div>
         </Form>
+        { displayAppPromo ? this.renderAppPromo() : null }
     </div>
     );
   }
@@ -171,12 +197,20 @@ class Login extends React.Component {
 const mapStateToProps = createSelector(
   state => state.session,
   state => state.platform,
-  (session, platform) => ({ session, platform }),
+  (session, platform) => {
+    const displayAppPromo = !!platform.currentPage.queryParams['native_app_promo'];
+    const nativeAppLink = platform.currentPage.queryParams['native_app_link'];
+    return { session, platform, nativeAppLink, displayAppPromo };
+  },
 );
 
 const mapDispatchToProps = (dispatch) => ({
   resetSessionError: () => {
     dispatch(sessionActions.sessionError(null));
+  },
+  nativeAppNavigator: (url) => {
+    dispatch(xpromoActions.promoClicked());
+    dispatch(redirect(url));
   },
 });
 
