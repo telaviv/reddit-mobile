@@ -9,7 +9,7 @@ import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
 import localStorageAvailable from 'lib/localStorageAvailable';
 import * as gtm from 'lib/gtm';
-import { XPROMO_LAST_CLOSED, XPROMO_SCROLLED_PASSED } from 'lib/smartBannerState';
+import { XPROMO_LAST_CLOSED, XPROMO_SCROLLED_PAST } from 'lib/smartBannerState';
 
 const ID_REGEX = /(?:t\d+_)?(.*)/;
 
@@ -71,8 +71,8 @@ export function getBannerInfo() {
   if (localStorage.getItem(XPROMO_LAST_CLOSED)) {
     info.banner_closed = true;
   }
-  if (localStorage.getItem(XPROMO_SCROLLED_PASSED)) {
-    info.banner_scrolled_passed = true;
+  if (localStorage.getItem(XPROMO_SCROLLED_PAST)) {
+    info.banner_scrolled_past = true;
   }
   return info;
 }

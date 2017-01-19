@@ -8,7 +8,7 @@ import features from 'app/featureFlags';
 
 // this is set to bannerLastClosed for legacy reasons.
 export const XPROMO_LAST_CLOSED = 'bannerLastClosed';
-export const XPROMO_SCROLLED_PASSED = 'xPromoScrollPassed';
+export const XPROMO_SCROLLED_PAST = 'xPromoScrollPassed';
 
 const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
 
@@ -124,5 +124,5 @@ export function markXPromoClosed() {
 export function markXPromoScrolledPassed() {
   if (!localStorageAvailable()) { return; }
 
-  localStorage.setItem(XPROMO_SCROLLED_PASSED, true);
+  localStorage.setItem(XPROMO_SCROLLED_PAST, true);
 }
