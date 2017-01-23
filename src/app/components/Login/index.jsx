@@ -81,18 +81,17 @@ class Login extends React.Component {
     );
   }
 
-  onAppPromoClick() {
+  onAppPromoClick = () => {
     const { nativeAppNavigator, nativeAppLink } = this.props;
     markBannerClosed();
     nativeAppNavigator(nativeAppLink);
   }
 
   renderAppPromo() {
-    const onAppPromoClick = this.onAppPromoClick.bind(this);
     return (
       <div className='Login__app-promo'>
         <p className='or'>or</p>
-        <SquareButton onClick={ onAppPromoClick } text='Continue in the app'/>
+        <SquareButton onClick={ this.onAppPromoClick } text='Continue in the app'/>
         <p className='subtext'>(no login required)</p>
       </div>
     );
