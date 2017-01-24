@@ -119,7 +119,6 @@ export function Post(props) {
     onStopPlaying,
     onReportPost,
     onUpdateSelftext,
-    onElementClick,
     toggleExpanded,
     toggleShowNSFW,
     winWidth,
@@ -213,7 +212,7 @@ export function Post(props) {
           showingLink={ !!(displayCompact && !hasExpandedCompact && externalDomain) }
           renderMediaFullbleed={ renderMediaFullbleed }
           showLinksInNewTab={ showLinksInNewTab }
-          onElementClick={ () => { onPostClick(post); onElementClick(); } }
+          onElementClick={ () => { onPostClick(post); } }
           titleOpensExpando={ inTitleExpandoExp && canExpand }
           onTapExpand={ toggleExpanded }
         />
@@ -230,7 +229,7 @@ export function Post(props) {
         onToggleSave={ onToggleSavePost }
         onToggleHide={ onToggleHidePost }
         onReportPost={ onReportPost }
-        onElementClick={ () => { onPostClick(post); onElementClick(); } }
+        onElementClick={ () => { onPostClick(post); } }
         onToggleModal={ onToggleModal }
         isSubredditModerator= { isSubredditModerator }
       />
