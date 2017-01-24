@@ -91,7 +91,10 @@ class Login extends React.Component {
     return (
       <div className='Login__app-promo'>
         <p className='or'>or</p>
-        <SquareButton onClick={ this.onAppPromoClick } text='Continue in the app'/>
+        <SquareButton
+            onClick={ this.onAppPromoClick }
+            modifier='orangered'
+            text='Continue in the app'/>
         <p className='subtext'>(no login required)</p>
       </div>
     );
