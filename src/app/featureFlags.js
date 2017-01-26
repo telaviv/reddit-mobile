@@ -184,14 +184,14 @@ const config = {
           { allowedDevices: [ANDROID] },
           { or: [
             { url: 'xpromofploginrequired' },
-            { variant: 'mweb_xpromo_transparent_fp_android:login_required' },
+            { variant: 'mweb_xpromo_require_login_fp_android:login_required' },
           ] },
         ] },
         { and: [
           { allowedDevices: [IPHONE] },
           { or: [
             { url: 'xpromofploginrequired' },
-            { variant: 'mweb_xpromo_transparent_fp_ios:login_required' },
+            { variant: 'mweb_xpromo_require_login_fp_ios:login_required' },
           ] },
         ] },
       ] },
@@ -206,14 +206,14 @@ const config = {
           { allowedDevices: [ANDROID] },
           { or: [
             { url: 'xpromosubredditloginrequired' },
-            { variant: 'mweb_xpromo_transparent_listing_android:login_required' },
+            { variant: 'mweb_xpromo_require_login_listing_android:login_required' },
           ] },
         ] },
         { and: [
           { allowedDevices: [IPHONE] },
           { or: [
             { url: 'xpromosubredditloginrequired' },
-            { variant: 'mweb_xpromo_transparent_listing_ios:login_required' },
+            { variant: 'mweb_xpromo_require_login_listing_ios:login_required' },
           ] },
         ] },
       ] },
