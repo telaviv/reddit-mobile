@@ -92,7 +92,6 @@ class DualPartInterstitialFooter extends React.Component {
       );
     }
 
-    const onClose = this.onClose.bind(this);
     const pageName = subredditName ? `r/${ subredditName }` : 'Reddit';
     const subtitleText = `View ${ pageName } in the app because you deserve the best.`;
 

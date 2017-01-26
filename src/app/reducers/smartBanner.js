@@ -1,5 +1,6 @@
 import merge from '@r/platform/merge';
 
+import * as platformActions from '@r/platform/actions';
 import * as xpromoActions from 'app/actions/xpromo';
 import * as loginActions from 'app/actions/login';
 import { markBannerClosed } from 'lib/smartBannerState';
@@ -42,6 +43,16 @@ export default function(state=DEFAULT, action={}) {
       return merge(state, {
         showBanner: false,
       });
+    }
+
+    case platformActions.NAVIGATE_TO_URL: {
+      if (state.haveShownXPromo && !state.loginRequired) {
+        markBannerClosed();
+        return merge(state, {
+          showBanner: false,
+        });
+      }
+      return state;
     }
 
     case loginActions.LOGGED_IN: {
