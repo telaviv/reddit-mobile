@@ -9,7 +9,7 @@ import getRouteMetaFromState from 'lib/getRouteMetaFromState';
 import getContentId from 'lib/getContentIdFromState';
 import url from 'url';
 import { getEventTracker } from 'lib/eventTracker';
-import { getDevice, IOS_DEVICES, ANDROID } from 'lib/getDeviceFromState';
+import { getDevice, IPHONE, IOS_DEVICES, ANDROID } from 'lib/getDeviceFromState';
 
 const {
   BETA,
@@ -148,7 +148,7 @@ const config = {
   // groups in the API's bucketing mechanism, so we use this hack instead.
   [VARIANT_XPROMO_FP_TRANSPARENT]: {
     and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
+      { allowedDevices: [IPHONE, ANDROID] },
       { allowedPages: ['index'] },
       { or: [
         { url: 'xpromofptransparent' },
@@ -165,7 +165,7 @@ const config = {
   // groups in the API's bucketing mechanism, so we use this hack instead.
   [VARIANT_XPROMO_SUBREDDIT_TRANSPARENT]: {
     and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
+      { allowedDevices: [IPHONE, ANDROID] },
       { allowedPages: ['listing'] },
       { allowNSFW: false },
       { or: [
@@ -178,22 +178,44 @@ const config = {
   },
   [VARIANT_XPROMO_FP_LOGIN_REQUIRED]: {
     and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['index'] },
       { or: [
-        { url: 'xpromofploginrequired' },
-        { variant: 'mweb_xpromo_transparent_fp:login_required' },
+        { and: [
+          { allowedDevices: [ANDROID] },
+          { or: [
+            { url: 'xpromofploginrequired' },
+            { variant: 'mweb_xpromo_transparent_fp_android:login_required' },
+          ] },
+        ] },
+        { and: [
+          { allowedDevices: [IPHONE] },
+          { or: [
+            { url: 'xpromofploginrequired' },
+            { variant: 'mweb_xpromo_transparent_fp_ios:login_required' },
+          ] },
+        ] },
       ] },
     ],
   },
   [VARIANT_XPROMO_SUBREDDIT_LOGIN_REQUIRED]: {
     and: [
-      { allowedDevices: IOS_DEVICES.concat(ANDROID) },
       { allowedPages: ['listing'] },
       { allowNSFW: false },
       { or: [
-        { url: 'xpromosubredditloginrequired' },
-        { variant: 'mweb_xpromo_transparent_listing:login_required' },
+        { and: [
+          { allowedDevices: [ANDROID] },
+          { or: [
+            { url: 'xpromosubredditloginrequired' },
+            { variant: 'mweb_xpromo_transparent_listing_android:login_required' },
+          ] },
+        ] },
+        { and: [
+          { allowedDevices: [IPHONE] },
+          { or: [
+            { url: 'xpromosubredditloginrequired' },
+            { variant: 'mweb_xpromo_transparent_listing_ios:login_required' },
+          ] },
+        ] },
       ] },
     ],
   },
