@@ -93,10 +93,10 @@ class DualPartInterstitialFooter extends React.Component {
           </div>
           <div className='DualPartInterstitialFooter__dismissal'>
             <span className='DualPartInterstitialFooter__dismissalText'>
-              { requireLogin ? 'or login to visit the ' : 'or go to the ' }
+              { requireLogin ? 'or ' : 'or go to the ' }
             </span>
             <a className='DualPartInterstitialFooter__dismissalLink' onClick={ onClose } >
-              mobile site
+              { requireLogin ? 'login' : 'mobile site' }
             </a>
           </div>
         </div>
