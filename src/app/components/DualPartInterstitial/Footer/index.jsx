@@ -48,7 +48,7 @@ class DualPartInterstitialFooter extends React.Component {
     }
   }
 
-  onClose() {
+  onClose = () => {
     const { dispatch, requireLogin } = this.props;
     if (requireLogin) {
       dispatch(redirect(this.loginLink()));
@@ -76,6 +76,22 @@ class DualPartInterstitialFooter extends React.Component {
       requireLogin,
     } = this.props;
 
+    let dismissal;
+
+    if (requireLogin) {
+      dismissal = (
+        <span className='DualPartInterstitialFooter__dismissalText'>
+          or <a className='DualPartInterstitialFooter__dismissalLink' onClick={ this.onClose } >login</a> to the mobile site
+        </span>
+      );
+    } else {
+      dismissal = (
+        <span className='DualPartInterstitialFooter__dismissalText'>
+          or go to the <a className='DualPartInterstitialFooter__dismissalLink' onClick={ this.onClose } >mobile site</a>
+        </span>
+      );
+    }
+
     const onClose = this.onClose.bind(this);
     const pageName = subredditName ? `r/${ subredditName }` : 'Reddit';
     const subtitleText = `View ${ pageName } in the app because you deserve the best.`;
@@ -92,12 +108,7 @@ class DualPartInterstitialFooter extends React.Component {
             Continue
           </div>
           <div className='DualPartInterstitialFooter__dismissal'>
-            <span className='DualPartInterstitialFooter__dismissalText'>
-              { requireLogin ? 'or ' : 'or go to the ' }
-            </span>
-            <a className='DualPartInterstitialFooter__dismissalLink' onClick={ onClose } >
-              { requireLogin ? 'login' : 'mobile site' }
-            </a>
+            { dismissal }
           </div>
         </div>
       </div>
