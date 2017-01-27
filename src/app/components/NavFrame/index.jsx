@@ -7,10 +7,10 @@ import EUCookieNotice from 'app/components/EUCookieNotice';
 import TopNav from 'app/components/TopNav';
 import { flags as flagConstants } from 'app/constants';
 import features from 'app/featureFlags';
+import { loginRequiredEnabled as loginRequiredXPromoVariant } from 'app/selectors/xpromo';
+
 
 const {
-  VARIANT_XPROMO_FP_LOGIN_REQUIRED,
-  VARIANT_XPROMO_SUBREDDIT_LOGIN_REQUIRED,
   VARIANT_XPROMO_FP_TRANSPARENT,
   VARIANT_XPROMO_SUBREDDIT_TRANSPARENT,
 } = flagConstants;
@@ -19,12 +19,6 @@ function transparentXPromoVariant(state) {
   const featureContext = features.withContext({ state });
   return featureContext.enabled(VARIANT_XPROMO_FP_TRANSPARENT) ||
          featureContext.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT);
-}
-
-function loginRequiredXPromoVariant(state) {
-  const featureContext = features.withContext({ state });
-  return featureContext.enabled(VARIANT_XPROMO_FP_LOGIN_REQUIRED) ||
-         featureContext.enabled(VARIANT_XPROMO_SUBREDDIT_LOGIN_REQUIRED);
 }
 
 const xPromoSelector = createSelector(

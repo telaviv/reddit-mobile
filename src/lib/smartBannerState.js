@@ -44,8 +44,8 @@ export function getBranchLink(state, payload={}) {
 
   const basePayload = {
     channel: 'mweb_branch',
-    feature: 'smartbanner',
-    campaign: 'xpromo_banner',
+    feature: 'xpromo',
+    campaign: 'xpromo',
     // We can use this space to fill "tags" which will populate on the
     // branch dashboard and allow you sort/parse data. Optional/not required.
     // tags: [ 'tag1', 'tag2' ],
@@ -55,9 +55,6 @@ export function getBranchLink(state, payload={}) {
     '$deeplink_path': window.location.href.split(window.location.host)[1],
     mweb_loid: loid,
     mweb_loid_created: loidCreated,
-    utm_source: 'mweb_branch',
-    utm_medium: 'smartbanner',
-    utm_name: 'xpromo_banner',
     mweb_user_id36: userId,
     mweb_user_name: userName,
   };
