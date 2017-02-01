@@ -88,23 +88,25 @@ export function getDeepLink(state) {
   }
 }
 
-export function shouldShowBanner() {
+export function shouldNotShowBanner() {
   // Most of the decision for showing a cross-promo component will happen in
   // the featureFlags component, but we have a couple of things to consider
   // here.
 
   // Make sure local storage exists
-  if (!localStorageAvailable()) { return false; }
+  if (!localStorageAvailable()) {
+    return 'local_storage_unavailable';
+  }
 
   // Check if it's been dismissed recently
   const lastClosedStr = localStorage.getItem('bannerLastClosed');
   const lastClosed = lastClosedStr ? new Date(lastClosedStr).getTime() : 0;
   const lastClosedLimit = lastClosed + TWO_WEEKS;
   if (lastClosedLimit > Date.now()) {
-    return false;
+    return 'dismissed_previously';
   }
 
-  return true;
+  return false;
 }
 
 export function markBannerClosed() {

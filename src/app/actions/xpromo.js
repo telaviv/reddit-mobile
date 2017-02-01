@@ -1,5 +1,13 @@
-import { markBannerClosed, shouldShowBanner } from 'lib/smartBannerState';
-import { trackPreferenceEvent } from 'lib/eventUtils';
+import { redirect } from '@r/platform/actions';
+import { interstitialType } from 'app/selectors/xpromo';
+import { markBannerClosed, shouldNotShowBanner } from 'lib/smartBannerState';
+import {
+  trackPreferenceEvent,
+  XPROMO_APP_STORE_VISIT,
+  XPROMO_DISMISS,
+  XPROMO_INELIGIBLE,
+  XPROMO_VIEW } from 'lib/eventUtils';
+
 
 export const SHOW = 'XPROMO__SHOW';
 export const show = () => ({ type: SHOW });
@@ -10,10 +18,20 @@ export const hide = () => ({ type: HIDE });
 export const PROMO_CLICKED = 'XPROMO__PROMO_CLICKED';
 export const promoClicked = () => ({ type: PROMO_CLICKED });
 
+export const PROMO_SCROLLPAST = 'XPROMO__SCROLLPAST';
+export const promoScrollPast = () => ({ type: PROMO_SCROLLPAST });
+
 export const RECORD_SHOWN = 'XPROMO__RECORD_SHOWN';
 export const recordShown = url => ({
   type: RECORD_SHOWN,
   url,
+});
+
+export const TRACK_XPROMO_EVENT = 'XPROMO__TRACK_EVENT';
+export const trackXPromoEvent = (eventType, data) => ({
+  type: TRACK_XPROMO_EVENT,
+  eventType,
+  data,
 });
 
 export const LOGIN_REQUIRED = 'XPROMO__LOGIN_REQUIRED';
@@ -38,8 +56,19 @@ export const close = () => async (dispatch, getState) => {
 
 };
 
-export const checkAndSet = () => async (dispatch) => {
-  if (shouldShowBanner()) {
+export const checkAndSet = (getState) => async (dispatch) => {
+  const state = getState();
+  const ineligibilityReason = shouldNotShowBanner();
+  if (ineligibilityReason) {
+    dispatch(trackXPromoEvent(XPROMO_INELIGIBLE, { ineligibility_reason: ineligibilityReason }));
+  } else {
+    dispatch(trackXPromoEvent(XPROMO_VIEW, { interstitial_type: interstitialType(state) }));
     dispatch(show());
   }
+};
+
+export const navigateToAppStore = (url, visitType) => async (dispatch) => {
+  dispatch(trackXPromoEvent(XPROMO_DISMISS, { dismiss_type: 'app_store_visit' }));
+  dispatch(trackXPromoEvent(XPROMO_APP_STORE_VISIT, { visit_trigger: visitType }));
+  dispatch(redirect(url));
 };

@@ -9,6 +9,7 @@ import { redirect } from '@r/platform/actions';
 
 import * as xpromoActions from 'app/actions/xpromo';
 import features from 'app/featureFlags';
+import { XPROMO_DISMISS } from 'lib/eventUtils';
 import getSubreddit from 'lib/getSubredditFromState';
 import { getBranchLink } from 'lib/smartBannerState';
 import {
@@ -50,6 +51,7 @@ class DualPartInterstitialFooter extends React.Component {
     if (requireLogin) {
       dispatch(redirect(this.loginLink()));
     } else {
+      dispatch(xpromoActions.trackXPromoEvent(XPROMO_DISMISS, { dismiss_type: 'link' }));
       dispatch(xpromoActions.close());
     }
   }

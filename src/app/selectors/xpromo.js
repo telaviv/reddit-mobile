@@ -57,6 +57,13 @@ function loginExperimentName(state) {
   return featureFlag ? EXPERIMENT_NAMES[featureFlag] : null;
 }
 
+export function interstitialType(state) {
+  if (loginRequiredEnabled(state)) {
+    return 'require_login';
+  }
+  return 'transparent';
+}
+
 export function isPartOfXPromoExperiment(state) {
   return !!loginExperimentName(state);
 }
@@ -64,6 +71,8 @@ export function isPartOfXPromoExperiment(state) {
 export function currentExperimentData(state) {
   const user = extractUser(state);
   const experimentName = loginExperimentName(state);
-  const variant = user.features[experimentName].variant;
+  const variant = user.features[experimentName] ?
+        user.features[experimentName].variant :
+        null; // this could happen if we are forcing the experiment via url.
   return { experimentName, variant };
 }

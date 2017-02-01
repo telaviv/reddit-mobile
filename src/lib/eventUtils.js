@@ -9,6 +9,12 @@ import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
 import * as gtm from 'lib/gtm';
 
+export const XPROMO_VIEW = 'cs.xpromo_view';
+export const XPROMO_INELIGIBLE = 'cs.xpromo_ineligible';
+export const XPROMO_DISMISS = 'cs.xpromo_dismiss';
+export const XPROMO_SCROLLPAST = 'cs.xpromo_scrollpast';
+export const XPROMO_APP_STORE_VISIT = 'cs.xpromo_app_store_visit';
+
 const ID_REGEX = /(?:t\d+_)?(.*)/;
 
 export function removePrefix(prefixedId) {
@@ -50,7 +56,7 @@ export function getUserInfoOrLoid(state) {
     };
   }
 
-  const loid = state.loid; 
+  const loid = state.loid;
   return {
     'loid': loid.loid,
     'loid_created': loid.loidCreated,
@@ -91,6 +97,15 @@ function trackScreenViewEvent(state, additionalEventData) {
     ...additionalEventData,
   };
   getEventTracker().track('screenview_events', 'cs.screenview_mweb', payload);
+}
+
+export function trackXPromoEvent(state, eventType, additionalEventData) {
+  const payload = {
+    ...getBasePayload(state),
+    ...buildSubredditData(state),
+    ...additionalEventData,
+  };
+  getEventTracker().track('xpromo_events', eventType, payload);
 }
 
 export function trackExperimentClickEvent(state, experimentName, experimentId, targetThing) {
