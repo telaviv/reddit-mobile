@@ -8,6 +8,10 @@ import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
 import * as gtm from 'lib/gtm';
+import {
+  isPartOfXPromoExperiment,
+  currentExperimentData as currentXPromoExperimentData
+} from 'app/selectors/xpromo';
 
 export const XPROMO_VIEW = 'cs.xpromo_view';
 export const XPROMO_INELIGIBLE = 'cs.xpromo_ineligible';
@@ -100,9 +104,15 @@ function trackScreenViewEvent(state, additionalEventData) {
 }
 
 export function trackXPromoEvent(state, eventType, additionalEventData) {
+  let experimentPayload = {}
+  if (isPartOfXPromoExperiment(state)) {
+    const { experimentName, variant } = currentXPromoExperimentData(state);
+    experimentPayload = { experiment_name: experimentName, experiment_variant: variant };
+  }
   const payload = {
     ...getBasePayload(state),
     ...buildSubredditData(state),
+    ...experimentPayload,
     ...additionalEventData,
   };
   getEventTracker().track('xpromo_events', eventType, payload);

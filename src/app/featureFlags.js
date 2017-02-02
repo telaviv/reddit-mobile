@@ -240,8 +240,8 @@ const config = {
       { allowNSFW: false },
       { allowedDevices: [IPHONE] },
       { or: [
-        { variant: 'mweb_xpromo_require_login_fp_ios:control_1' },
-        { variant: 'mweb_xpromo_require_login_fp_ios:control_2' },
+        { variant: 'mweb_xpromo_require_login_listing_ios:control_1' },
+        { variant: 'mweb_xpromo_require_login_listing_ios:control_2' },
       ] },
     ],
   },
@@ -496,7 +496,7 @@ flags.addRule('allowNSFW', function(allowed) {
   if (subredditInfo) {
     return !subredditInfo.over18;
   }
-  return false;
+  return true;
 });
 
 export default flags;

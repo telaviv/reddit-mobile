@@ -56,7 +56,7 @@ export const close = () => async (dispatch, getState) => {
 
 };
 
-export const checkAndSet = (getState) => async (dispatch) => {
+export const checkAndSet = () => async (dispatch, getState) => {
   const state = getState();
   const ineligibilityReason = shouldNotShowBanner();
   if (ineligibilityReason) {
