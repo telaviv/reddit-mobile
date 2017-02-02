@@ -134,9 +134,9 @@ function createNativeAppLink(state, linkType) {
 const selector = createSelector(
   getSubreddit,
   requireXPromoLogin,
-  (state) => { return features.withContext({ state }); },
-  (state) => { return state.user.loggedOut; },
-  (state) => {
+  state => features.withContext({ state }),
+  state => state.user.loggedOut,
+  state => {
     return (linkType) => {
       return createNativeAppLink(state, linkType);
     };

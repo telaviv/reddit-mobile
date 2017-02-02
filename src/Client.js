@@ -162,5 +162,5 @@ isShell = client.getState().platform.shell;
 client.dispatch(platformActions.activateClient());
 
 if (isShell) {
-  client.dispatch(xpromoActions.checkAndSet(client.getState));
+  client.dispatch(xpromoActions.checkAndSet());
 }

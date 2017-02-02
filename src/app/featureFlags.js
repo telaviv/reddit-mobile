@@ -4,11 +4,11 @@ import isNull from 'lodash/isNull';
 import sha1 from 'sha1';
 
 import { flags as flagConstants } from 'app/constants';
-import { getExperimentData } from 'lib/experiments';
 import getSubreddit from 'lib/getSubredditFromState';
 import getRouteMetaFromState from 'lib/getRouteMetaFromState';
 import getContentId from 'lib/getContentIdFromState';
 import url from 'url';
+import { extractUser, getExperimentData } from 'lib/experiments';
 import { getEventTracker } from 'lib/eventTracker';
 import { getDevice, IPHONE, IOS_DEVICES, ANDROID } from 'lib/getDeviceFromState';
 
@@ -239,6 +239,10 @@ const config = {
       { allowedPages: ['listing'] },
       { allowNSFW: false },
       { allowedDevices: [IPHONE] },
+      { or: [
+        { variant: 'mweb_xpromo_require_login_fp_ios:control_1' },
+        { variant: 'mweb_xpromo_require_login_fp_ios:control_2' },
+      ] },
     ],
   },
   [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID]: {
@@ -296,14 +300,6 @@ const SEO_REFERRERS = [
   'bing.com',
 ];
 
-function extractUser(ctx) {
-  const { state } = ctx;
-  if (!state || !state.user || !state.accounts) {
-    return;
-  }
-  return state.accounts[state.user.name];
-}
-
 flags.addRule('loggedin', function(val) {
   return (!!this.state.user && !this.state.user.loggedOut) === val;
 });
@@ -351,6 +347,7 @@ flags.addRule('variant', function (name) {
   const experimentData = getExperimentData(this.state, experiment_name);
   if (experimentData) {
     const { variant, experiment_id, owner } = experimentData;
+    const { user } = this.state;
 
     // we only want to bucket the user once per session for any given experiment.
     // to accomplish this, we're going to use the fact that featureFlags is a
@@ -364,10 +361,10 @@ flags.addRule('variant', function (name) {
         experiment_id,
         experiment_name,
         variant,
-        user_id: !this.state.user.loggedOut ? parseInt(this.state.user.id, 36) : null,
-        user_name: !this.state.user.loggedOut ? this.state.user.name : null,
-        loid: this.state.user.loggedOut ? this.state.loid.loid : null,
-        loidcreated: this.state.user.loggedOut ? this.state.loid.loidCreated : null,
+        user_id: !user.loggedOut ? parseInt(user.id, 36) : null,
+        user_name: !user.loggedOut ? user.name : null,
+        loid: user.loggedOut ? this.state.loid.loid : null,
+        loidcreated: user.loggedOut ? this.state.loid.loidCreated : null,
         owner: owner || null,
       };
 

@@ -2,6 +2,7 @@ import { find, some } from 'lodash';
 
 import { flags as flagConstants } from 'app/constants';
 import features from 'app/featureFlags';
+import { getExperimentData } from 'lib/experiments';
 
 const {
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
@@ -24,13 +25,6 @@ const EXPERIMENT_NAMES = {
   [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL]: 'mweb_xpromo_require_login_listing_ios',
   [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: 'mweb_xpromo_require_login_listing_android',
 };
-
-function extractUser(state) {
-  if (!state.user || !state.accounts) {
-    return;
-  }
-  return state.accounts[state.user.name];
-}
 
 export function loginRequiredEnabled(state) {
   const featureContext = features.withContext({ state });
@@ -69,10 +63,6 @@ export function isPartOfXPromoExperiment(state) {
 }
 
 export function currentExperimentData(state) {
-  const user = extractUser(state);
   const experimentName = loginExperimentName(state);
-  const variant = user.features[experimentName] ?
-        user.features[experimentName].variant :
-        null; // this could happen if we are forcing the experiment via url.
-  return { experimentName, variant };
+  return getExperimentData(state, experimentName);
 }

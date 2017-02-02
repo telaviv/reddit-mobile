@@ -1,5 +1,5 @@
-function extractUser(state) {
-  if (!state.user || !state.accounts) {
+export function extractUser(state) {
+  if (!state || !state.user || !state.accounts) {
     return;
   }
   return state.accounts[state.user.name];
@@ -7,8 +7,8 @@ function extractUser(state) {
 
 export function getExperimentData(state, experimentName) {
   const user = extractUser(state);
-  if (!(user && user.features && user.features[experimentName])) {
-    return;
-  }
-  return user.features[experimentName];
+  const variant = user.features[experimentName] ?
+        user.features[experimentName].variant :
+        null; // this could happen if we are forcing the experiment via url.
+  return { experimentName, variant };
 }
