@@ -496,7 +496,7 @@ flags.addRule('allowNSFW', function(allowed) {
   if (subredditInfo) {
     return !subredditInfo.over18;
   }
-  return true;
+  return false;
 });
 
 export default flags;

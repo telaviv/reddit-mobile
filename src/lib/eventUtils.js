@@ -3,15 +3,17 @@ import values from 'lodash/values';
 import url from 'url';
 
 import { ADBLOCK_TEST_ID } from 'app/constants';
-
+import {
+  interstitialType,
+  isPartOfXPromoExperiment,
+  currentExperimentData as currentXPromoExperimentData,
+  shouldShowXPromo,
+} from 'app/selectors/xpromo';
 import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
 import { getEventTracker } from 'lib/eventTracker';
 import * as gtm from 'lib/gtm';
-import {
-  isPartOfXPromoExperiment,
-  currentExperimentData as currentXPromoExperimentData
-} from 'app/selectors/xpromo';
+import { shouldNotShowBanner } from 'lib/smartBannerState';
 
 export const XPROMO_VIEW = 'cs.xpromo_view';
 export const XPROMO_INELIGIBLE = 'cs.xpromo_ineligible';
@@ -104,7 +106,7 @@ function trackScreenViewEvent(state, additionalEventData) {
 }
 
 export function trackXPromoEvent(state, eventType, additionalEventData) {
-  let experimentPayload = {}
+  let experimentPayload = {};
   if (isPartOfXPromoExperiment(state)) {
     const { experimentName, variant } = currentXPromoExperimentData(state);
     experimentPayload = { experiment_name: experimentName, experiment_variant: variant };
@@ -116,6 +118,15 @@ export function trackXPromoEvent(state, eventType, additionalEventData) {
     ...additionalEventData,
   };
   getEventTracker().track('xpromo_events', eventType, payload);
+}
+
+export function trackXPromoInit(state) {
+  const ineligibilityReason = shouldNotShowBanner();
+  if (ineligibilityReason) {
+    trackXPromoEvent(state, XPROMO_INELIGIBLE, { ineligibility_reason: ineligibilityReason });
+  } else {
+    trackXPromoEvent(state, XPROMO_VIEW, { interstitial_type: interstitialType(state) });
+  }
 }
 
 export function trackExperimentClickEvent(state, experimentName, experimentId, targetThing) {
@@ -182,6 +193,9 @@ export function trackPageEvents(state, additionalEventData={}) {
   if (process.env.ENV === 'client') {
     gtmPageView(state);
     trackScreenViewEvent(state, additionalEventData);
+    if (shouldShowXPromo(state)) {
+      trackXPromoInit(state);
+    }
   } else if (state.meta.crawler) {
     trackCrawlEvent(state, additionalEventData);
   }

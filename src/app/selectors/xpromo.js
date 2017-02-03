@@ -5,6 +5,8 @@ import features from 'app/featureFlags';
 import { getExperimentData } from 'lib/experiments';
 
 const {
+  VARIANT_XPROMO_FP_TRANSPARENT,
+  VARIANT_XPROMO_SUBREDDIT_TRANSPARENT,
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
   VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
@@ -26,6 +28,13 @@ const EXPERIMENT_NAMES = {
   [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: 'mweb_xpromo_require_login_listing_android',
 };
 
+export function shouldShowXPromo(state) {
+  const featureContext = features.withContext({ state });
+  return state.smartBanner.showBanner &&
+    featureContext.enabled(VARIANT_XPROMO_FP_TRANSPARENT) ||
+    featureContext.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT);
+}
+
 export function loginRequiredEnabled(state) {
   const featureContext = features.withContext({ state });
   return some([
@@ -33,7 +42,7 @@ export function loginRequiredEnabled(state) {
     VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
     VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
     VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID,
-  ], (feature) => { return featureContext.enabled(feature); });
+  ], feature => featureContext.enabled(feature));
 }
 
 function loginExperimentName(state) {
@@ -47,7 +56,7 @@ function loginExperimentName(state) {
     VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID_CONTROL,
     VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL,
     VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL,
-  ], (feature) => { return featureContext.enabled(feature); });
+  ], feature => featureContext.enabled(feature));
   return featureFlag ? EXPERIMENT_NAMES[featureFlag] : null;
 }
 

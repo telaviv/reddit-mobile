@@ -1,12 +1,9 @@
 import { redirect } from '@r/platform/actions';
-import { interstitialType } from 'app/selectors/xpromo';
 import { markBannerClosed, shouldNotShowBanner } from 'lib/smartBannerState';
 import {
   trackPreferenceEvent,
   XPROMO_APP_STORE_VISIT,
-  XPROMO_DISMISS,
-  XPROMO_INELIGIBLE,
-  XPROMO_VIEW } from 'lib/eventUtils';
+  XPROMO_DISMISS } from 'lib/eventUtils';
 
 
 export const SHOW = 'XPROMO__SHOW';
@@ -56,13 +53,8 @@ export const close = () => async (dispatch, getState) => {
 
 };
 
-export const checkAndSet = () => async (dispatch, getState) => {
-  const state = getState();
-  const ineligibilityReason = shouldNotShowBanner();
-  if (ineligibilityReason) {
-    dispatch(trackXPromoEvent(XPROMO_INELIGIBLE, { ineligibility_reason: ineligibilityReason }));
-  } else {
-    dispatch(trackXPromoEvent(XPROMO_VIEW, { interstitial_type: interstitialType(state) }));
+export const checkAndSet = () => async (dispatch) => {
+  if (!shouldNotShowBanner()) {
     dispatch(show());
   }
 };
