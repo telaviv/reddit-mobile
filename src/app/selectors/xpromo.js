@@ -45,7 +45,6 @@ export function loginRequiredEnabled(state) {
 }
 
 export function shouldShowXPromo(state) {
-  const featureContext = features.withContext({ state });
   return state.smartBanner.showBanner && transparentXPromoEnabled(state);
 }
 

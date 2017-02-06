@@ -7,7 +7,6 @@ import {
   interstitialType,
   isPartOfXPromoExperiment,
   currentExperimentData as currentXPromoExperimentData,
-  shouldShowXPromo,
   transparentXPromoEnabled as shouldTrackXPromo,
 } from 'app/selectors/xpromo';
 import { isHidden } from 'lib/dom';
