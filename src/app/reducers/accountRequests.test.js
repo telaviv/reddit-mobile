@@ -9,13 +9,13 @@ const REQUIRED_KEYS = ['id', 'loading' ];
 createTest({ reducers: { accountRequests } }, ({ getStore, expect }) => {
   describe('accountRequests', () => {
 
-    describe('LOGGED_IN and LOGGED_OUT', () => {
-      it('should return default on log in', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
+      it('should return default on logging in', () => {
         const { store } = getStore({
           accountRequests: { 'me': {} },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { accountRequests } = store.getState();
         expect(accountRequests).to.eql({});

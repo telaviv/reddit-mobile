@@ -6,8 +6,8 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { user } }, ({ getStore, expect }) => {
   describe('user', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
-      it('should return default on log in', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
+      it('should return default on logged out', () => {
         const { store } = getStore({
           user: {
             ...DEFAULT,
@@ -20,14 +20,14 @@ createTest({ reducers: { user } }, ({ getStore, expect }) => {
         expect(user).to.eql(DEFAULT);
       });
 
-      it('should return default on log out', () => {
+      it('should return default on logging in', () => {
         const { store } = getStore({
           user: {
             ...DEFAULT,
             name: 'tester',
           },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { user } = store.getState();
         expect(user).to.eql(DEFAULT);

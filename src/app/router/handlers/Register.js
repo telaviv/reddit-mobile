@@ -23,10 +23,8 @@ export default class Register extends BaseHandler {
       const newSession = await registerUser(username, password, email,
                                             newsletter, gRecaptchaResponse);
       dispatch(sessionActions.setSession(newSession));
-      dispatch(loginActions.loggedIn());
-
-      // This is awaited to guarantee the user is loaded for event logging
-      await dispatch(platformActions.navigateToUrl(METHODS.GET, '/'));
+      await dispatch(loginActions.login());
+      dispatch(platformActions.navigateToUrl(METHODS.GET, '/'));
 
     } catch (e) {
       successful = false;

@@ -3,8 +3,8 @@ import * as platformActions from '@r/platform/actions';
 import { errors } from '@r/api-client';
 
 import Session from 'app/models/Session';
-import * as sessionActions from 'app/actions/session';
 import * as loginActions from 'app/actions/login';
+import * as sessionActions from 'app/actions/session';
 import { getEventTracker } from 'lib/eventTracker';
 import { getBasePayload, trackPageEvents } from 'lib/eventUtils';
 
@@ -22,10 +22,8 @@ export default class Login extends BaseHandler {
     try {
       const newSession = await Session.fromLogin(username, password);
       dispatch(sessionActions.setSession(newSession));
-      dispatch(loginActions.loggedIn());
-
-      // This is awaited to guarantee the user is loaded for event logging
-      await dispatch(platformActions.redirect(redirectTo));
+      await dispatch(loginActions.login());
+      dispatch(platformActions.redirect(redirectTo));
     } catch (e) {
       successful = false;
       if (e instanceof errors.ValidationError && e.errors && e.errors[0]) {
