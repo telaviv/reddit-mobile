@@ -345,7 +345,7 @@ const firstBuckets = new Set();
 flags.addRule('variant', function (name) {
   const [experiment_name, checkedVariant] = name.split(':');
   const experimentData = getExperimentData(this.state, experiment_name);
-  if (experimentData) {
+  if (Object.keys(experimentData).length !== 0) { // can be an empty object.
     const { variant, experiment_id, owner } = experimentData;
     const { user } = this.state;
 

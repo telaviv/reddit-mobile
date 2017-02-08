@@ -108,8 +108,8 @@ function trackScreenViewEvent(state, additionalEventData) {
 export function trackXPromoEvent(state, eventType, additionalEventData) {
   let experimentPayload = {};
   if (isPartOfXPromoExperiment(state)) {
-    const { experimentName, variant } = currentXPromoExperimentData(state);
-    experimentPayload = { experiment_name: experimentName, experiment_variant: variant };
+    const { experiment_name, variant } = currentXPromoExperimentData(state);
+    experimentPayload = { experiment_name, experiment_variant: variant };
   }
   const payload = {
     ...getBasePayload(state),
