@@ -8,7 +8,7 @@ import editingText, { DEFAULT_STATE } from './editingText';
 
 createTest({ reducers: { editingText }}, ({ getStore, expect}) => {
   describe('editingText', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           editingText: {
@@ -28,7 +28,7 @@ createTest({ reducers: { editingText }}, ({ getStore, expect}) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { editingText } = store.getState();
         expect(editingText).to.eql(DEFAULT_STATE);
       });

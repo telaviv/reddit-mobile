@@ -8,12 +8,12 @@ import { newSubscribedSubredditsModel } from 'app/models/SubscribedSubreddits';
 
 createTest({ reducers: { subscribedSubreddits } }, ({ getStore, expect }) => {
   describe('subscribedSubreddits', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           subscribedSubreddits: { 'foobar': 't5_12345' },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { subscribedSubreddits } = store.getState();
         expect(subscribedSubreddits).to.eql(newSubscribedSubredditsModel());

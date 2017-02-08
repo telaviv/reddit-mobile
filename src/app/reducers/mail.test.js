@@ -7,7 +7,7 @@ import * as mailActions from 'app/actions/mail';
 
 createTest({ reducers: { mail } }, ({ getStore, expect }) => {
   describe('mail', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           mail: {},
@@ -23,7 +23,7 @@ createTest({ reducers: { mail } }, ({ getStore, expect }) => {
           mail: {},
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { mail } = store.getState();
         expect(mail).to.eql(DEFAULT);
       });

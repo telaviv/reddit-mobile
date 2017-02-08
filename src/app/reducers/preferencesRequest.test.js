@@ -6,7 +6,7 @@ import * as preferenceActions from 'app/actions/preferences';
 
 createTest({ reducers: { preferencesRequest }}, ({ getStore, expect }) => {
   describe('preferencesRequest', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           preferencesRequest: {
@@ -16,7 +16,7 @@ createTest({ reducers: { preferencesRequest }}, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { preferencesRequest } = store.getState();
         expect(preferencesRequest).to.eql(DEFAULT);
       });

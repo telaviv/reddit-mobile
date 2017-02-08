@@ -11,7 +11,7 @@ import * as subscribedSubredditsActions from 'app/actions/subscribedSubreddits';
 
 createTest({ reducers: { subreddits }}, ({ getStore, expect }) => {
   describe('subreddits', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log ou', () => {
         const { store } = getStore({
           subreddits: {
@@ -31,7 +31,7 @@ createTest({ reducers: { subreddits }}, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { subreddits } = store.getState();
         expect(subreddits).to.eql({});
       });

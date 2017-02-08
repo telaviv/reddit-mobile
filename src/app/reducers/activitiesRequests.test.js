@@ -9,12 +9,12 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { activitiesRequests }}, ({ getStore, expect}) => {
   describe('activitiesRequests', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           activitiesRequests: { 'me': {} },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { activitiesRequests } = store.getState();
         expect(activitiesRequests).to.eql({});

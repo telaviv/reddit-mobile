@@ -8,12 +8,12 @@ createTest({ reducers: { subredditRequests } }, ({ getStore, expect }) => {
   describe('subredditRequests', () => {
     const NAME = 'foo';
 
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           subredditRequests: { request: {} },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { subredditRequests } = store.getState();
         expect(subredditRequests).to.eql({});

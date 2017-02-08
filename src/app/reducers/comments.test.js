@@ -19,7 +19,7 @@ import * as modToolActions from 'app/actions/modTools';
 
 createTest({ reducers: { comments } }, ({ getStore, expect }) => {
   describe('comments', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           comments: { t1_1: {} },
@@ -35,7 +35,7 @@ createTest({ reducers: { comments } }, ({ getStore, expect }) => {
           comments: { t1_1: {} },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { comments } = store.getState();
         expect(comments).to.eql({});
       });

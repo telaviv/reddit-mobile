@@ -10,7 +10,7 @@ import adRequests, { DEFAULT } from './adRequests';
 
 createTest({ reducers: { adRequests }}, ({ getStore, expect }) => {
   describe('adRequests', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           adRequests: {
@@ -30,7 +30,7 @@ createTest({ reducers: { adRequests }}, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { adRequests } = store.getState();
         expect(adRequests).to.eql(DEFAULT);
       });

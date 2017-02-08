@@ -8,12 +8,12 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { postsLists } }, ({ getStore, expect }) => {
   describe('postsLists', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           postsLists: { request: {} },
         });
-        store.dispatch({ type: loginActions.LOGGED_IN });
+        store.dispatch({ type: loginActions.LOGGING_IN });
 
         const { postsLists } = store.getState();
         expect(postsLists).to.eql({});

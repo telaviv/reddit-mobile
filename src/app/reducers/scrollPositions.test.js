@@ -6,7 +6,7 @@ import * as scrollPositionActions from 'app/actions/scrollPosition';
 
 createTest({ reducers: { scrollPositions }}, ({ getStore, expect }) => {
   describe('scrollPositions', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           scrollPositions: {
@@ -26,7 +26,7 @@ createTest({ reducers: { scrollPositions }}, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { scrollPositions } = store.getState();
         expect(scrollPositions).to.eql(DEFAULT);
       });

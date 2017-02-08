@@ -10,12 +10,12 @@ import * as replyActions from 'app/actions/reply';
 
 createTest({ reducers: { commentsPages } }, ({ getStore, expect }) => {
   describe('commentsPages', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           commentsPages: { 'page': {} },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { commentsPages } = store.getState();
         expect(commentsPages).to.eql({});

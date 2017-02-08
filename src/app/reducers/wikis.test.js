@@ -6,7 +6,7 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { wikis } }, ({ getStore, expect }) => {
   describe('wikis', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           wikis: {
@@ -26,7 +26,7 @@ createTest({ reducers: { wikis } }, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { wikis } = store.getState();
         expect(wikis).to.eql({});
       });

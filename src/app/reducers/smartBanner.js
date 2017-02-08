@@ -62,7 +62,7 @@ export default function(state=DEFAULT, action={}) {
       return state;
     }
 
-    case loginActions.LOGGED_IN: {
+    case loginActions.LOGGING_IN: {
       if (state.loginRequired) {
         markBannerClosed();
         return merge(state, {

@@ -7,7 +7,7 @@ export const DEFAULT = themes.DAYMODE;
 
 export default (state=DEFAULT, action={}) => {
   switch (action.type) {
-    case loginActions.LOGGED_IN:
+    case loginActions.LOGGING_IN:
     case loginActions.LOGGED_OUT: {
       return DEFAULT;
     }

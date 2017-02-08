@@ -45,7 +45,7 @@ export const DEFAULT_STATE = {};
 export default function(state=DEFAULT_STATE, action={}) {
   switch (action.type) {
     // if you log in / out what you're allowed to edit has changed, clear it
-    case loginActions.LOGGED_IN:
+    case loginActions.LOGGING_IN:
     case loginActions.LOGGED_OUT: {
       return DEFAULT_STATE;
     }

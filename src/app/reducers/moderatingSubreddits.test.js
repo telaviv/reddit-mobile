@@ -7,7 +7,7 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { moderatingSubreddits } }, ({ getStore, expect }) => {
   describe('moderatingSubreddits', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           moderatingSubreddits: {
@@ -16,7 +16,7 @@ createTest({ reducers: { moderatingSubreddits } }, ({ getStore, expect }) => {
             loading: false,
           },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { moderatingSubreddits } = store.getState();
         expect(moderatingSubreddits).to.eql({

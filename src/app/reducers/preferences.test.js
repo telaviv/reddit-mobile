@@ -10,13 +10,13 @@ import * as preferenceActions from 'app/actions/preferences';
 
 createTest({ reducers: { preferences }}, ({ getStore, expect }) => {
   describe('preferences', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           preferences: DEFAULT.set('over18', true),
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { preferences } = store.getState();
         expect(preferences).to.eql(DEFAULT);
       });

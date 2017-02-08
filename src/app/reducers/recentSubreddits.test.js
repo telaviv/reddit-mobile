@@ -7,7 +7,7 @@ import recentSubreddits from './recentSubreddits';
 
 createTest({ reducers: { recentSubreddits } }, ({ expect, getStore }) => {
   describe('recentSubreddits', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log out', () => {
         const { store } = getStore({
           recentSubreddits: ['a', 'b', 'c'],
@@ -23,7 +23,7 @@ createTest({ reducers: { recentSubreddits } }, ({ expect, getStore }) => {
           recentSubreddits: ['a', 'b', 'c'],
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { recentSubreddits } = store.getState();
         expect(recentSubreddits).to.eql([]);
       });

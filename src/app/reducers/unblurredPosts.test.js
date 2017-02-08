@@ -6,7 +6,7 @@ import * as postActions from 'app/actions/posts';
 
 createTest({ reducers: { unblurredPosts } }, ({ getStore, expect }) => {
   describe('unblurredPosts', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           unblurredPosts: {
@@ -14,7 +14,7 @@ createTest({ reducers: { unblurredPosts } }, ({ getStore, expect }) => {
           },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { unblurredPosts } = store.getState();
         expect(unblurredPosts).to.eql(DEFAULT);
       });

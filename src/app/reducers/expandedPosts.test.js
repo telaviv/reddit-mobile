@@ -6,13 +6,13 @@ import * as postActions from 'app/actions/posts';
 
 createTest({ reducers: { expandedPosts }}, ({ getStore, expect }) => {
   describe('expandedPosts', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return the default on log in', () => {
         const { store } = getStore({
           expandedPosts: { t3_asdf: true },
         });
 
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
         const { expandedPosts } = store.getState();
         expect(expandedPosts).to.eql({});
       });

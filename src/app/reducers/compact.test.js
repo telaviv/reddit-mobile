@@ -6,10 +6,10 @@ import compact from './compact';
 
 createTest({ reducers: { compact } }, ({ getStore, expect }) => {
   describe('compact', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({ compact: false });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { compact } = store.getState();
         expect(compact).to.eql(true);

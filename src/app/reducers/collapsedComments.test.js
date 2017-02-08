@@ -6,12 +6,12 @@ import * as loginActions from 'app/actions/login';
 
 createTest({ reducers: { collapsedComments } }, ({ getStore, expect }) => {
   describe('collapsedComments', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       it('should return default on log in', () => {
         const { store } = getStore({
           collapsedComments: { t1_1: true },
         });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { collapsedComments } = store.getState();
         expect(collapsedComments).to.eql({});

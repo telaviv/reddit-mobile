@@ -8,7 +8,7 @@ import * as postingActions from 'app/actions/posting';
 
 createTest({ reducers: { posting }, routes }, ({ getStore, expect }) => {
   describe('posting', () => {
-    describe('LOGGED_IN and LOGGED_OUT', () => {
+    describe('LOGGING_IN and LOGGED_OUT', () => {
       const INITIAL = {
         title: 'a',
         meta: 'b',
@@ -19,7 +19,7 @@ createTest({ reducers: { posting }, routes }, ({ getStore, expect }) => {
 
       it('should return default on log in', () => {
         const { store } = getStore({ posting: INITIAL });
-        store.dispatch(loginActions.loggedIn());
+        store.dispatch(loginActions.loggingIn());
 
         const { posting } = store.getState();
         expect(posting).to.eql({

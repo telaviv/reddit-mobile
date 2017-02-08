@@ -38,7 +38,7 @@ const preservePostContentPreviews = (state, post) => {
 
 export default function(state=DEFAULT, action={}) {
   switch (action.type) {
-    case loginActions.LOGGED_IN:
+    case loginActions.LOGGING_IN:
     case loginActions.LOGGED_OUT: {
       return DEFAULT;
     }
