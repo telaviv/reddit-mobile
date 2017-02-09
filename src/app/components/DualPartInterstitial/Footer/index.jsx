@@ -135,10 +135,8 @@ const selector = createSelector(
   getSubreddit,
   requireXPromoLogin,
   state => features.withContext({ state }),
-  state => state.user.loggedOut,
   state => linkType => createNativeAppLink(state, linkType),
-  (subredditName, requireXPromoLogin, featureContext, loggedOut, createLink) => {
-    const requireLogin = loggedOut && requireXPromoLogin;
+  (subredditName, requireLogin, featureContext, createLink) => {
     const nativeInterstitialLink = createLink('interstitial');
     const nativeLoginLink = createLink('login');
     return { subredditName, requireLogin, nativeInterstitialLink, nativeLoginLink };

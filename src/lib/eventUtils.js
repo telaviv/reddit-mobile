@@ -7,7 +7,7 @@ import {
   interstitialType,
   isPartOfXPromoExperiment,
   currentExperimentData as currentXPromoExperimentData,
-  transparentXPromoEnabled as shouldTrackXPromo,
+  transparentVariantBucketed as shouldTrackXPromo,
 } from 'app/selectors/xpromo';
 import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';

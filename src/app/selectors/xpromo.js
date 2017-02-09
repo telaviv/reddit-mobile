@@ -28,27 +28,34 @@ const EXPERIMENT_NAMES = {
   [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: 'mweb_xpromo_require_login_listing_android',
 };
 
-export function transparentXPromoEnabled(state) {
+export function transparentVariantBucketed(state) {
   const featureContext = features.withContext({ state });
   return featureContext.enabled(VARIANT_XPROMO_FP_TRANSPARENT) ||
-    featureContext.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT);
+     featureContext.enabled(VARIANT_XPROMO_SUBREDDIT_TRANSPARENT);
 }
 
 export function loginRequiredEnabled(state) {
   const featureContext = features.withContext({ state });
-  return some([
-    VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
-    VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
-    VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
-    VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID,
-  ], feature => featureContext.enabled(feature));
+  return (
+    shouldShowXPromo(state) &&
+    state.user.loggedOut &&
+    some([
+      VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
+      VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
+      VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
+      VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID,
+    ], feature => featureContext.enabled(feature))
+  );
 }
 
 export function shouldShowXPromo(state) {
-  return state.smartBanner.showBanner && transparentXPromoEnabled(state);
+  return state.smartBanner.showBanner && transparentVariantBucketed(state);
 }
 
 function loginExperimentName(state) {
+  if (!shouldShowXPromo(state)) {
+    return null;
+  }
   const featureContext = features.withContext({ state });
   const featureFlag = find([
     VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
