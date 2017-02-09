@@ -140,9 +140,8 @@ function createNativeAppLink(state, linkType) {
 const selector = createSelector(
   getSubreddit,
   requireXPromoLogin,
-  state => features.withContext({ state }),
   state => linkType => createNativeAppLink(state, linkType),
-  (subredditName, requireLogin, featureContext, createLink) => {
+  (subredditName, requireLogin, createLink) => {
     const nativeInterstitialLink = createLink('interstitial');
     const nativeLoginLink = createLink('login');
     return { subredditName, requireLogin, nativeInterstitialLink, nativeLoginLink };
