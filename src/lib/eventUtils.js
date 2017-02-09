@@ -7,7 +7,7 @@ import {
   interstitialType,
   isPartOfXPromoExperiment,
   currentExperimentData as currentXPromoExperimentData,
-  transparentVariantBucketed as shouldTrackXPromo,
+  xpromoIsEnabledOnPage,
 } from 'app/selectors/xpromo';
 import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
@@ -201,7 +201,7 @@ export function trackPageEvents(state, additionalEventData={}) {
   if (process.env.ENV === 'client') {
     gtmPageView(state);
     trackScreenViewEvent(state, additionalEventData);
-    if (shouldTrackXPromo(state)) {
+    if (xpromoIsEnabledOnPage(state)) {
       trackXPromoInit(state, additionalEventData);
     }
   } else if (state.meta.crawler) {

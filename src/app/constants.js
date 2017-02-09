@@ -94,8 +94,6 @@ export const flags = {
   VARIANT_RECOMMENDED_BY_POST_HOT: 'experimentRecommendedByPostHot',
   VARIANT_RECOMMENDED_SIMILAR_POSTS: 'experimentRecommendedSimilarPosts',
   VARIANT_SUBREDDIT_HEADER: 'experimentSubredditHeader',
-  VARIANT_XPROMO_FP_TRANSPARENT: 'experimentXPromoFrontPageTransparent',
-  VARIANT_XPROMO_SUBREDDIT_TRANSPARENT: 'experimentXPromoSubredditTransparent',
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS: 'experimentXPromoLoginRequiredFPIOS',
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID: 'experimentXPromoLoginRequiredFPAndroid',
   VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS: 'experimentXPromoLoginRequiredSubredditIOS',

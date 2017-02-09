@@ -27,8 +27,6 @@ const {
   VARIANT_RECOMMENDED_BY_POST_HOT,
   VARIANT_RECOMMENDED_SIMILAR_POSTS,
   VARIANT_SUBREDDIT_HEADER,
-  VARIANT_XPROMO_FP_TRANSPARENT,
-  VARIANT_XPROMO_SUBREDDIT_TRANSPARENT,
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
   VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
   VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
@@ -147,41 +145,6 @@ const config = {
     }, {
       seoReferrer: true,
     }],
-  },
-  // As a temporary hack, we are showing the list treatment also to users
-  // bucketed into the control groups. We want to continue to get bucketing
-  // events, so we know when a user has been exposed to this feature, and we
-  // want to show 100% of users the list treatment. We can't eliminate control
-  // groups in the API's bucketing mechanism, so we use this hack instead.
-  [VARIANT_XPROMO_FP_TRANSPARENT]: {
-    and: [
-      { allowedDevices: [IPHONE, ANDROID] },
-      { allowedPages: ['index'] },
-      { or: [
-        { url: 'xpromofptransparent' },
-        { variant: 'mweb_xpromo_transparent_fp:transparent' },
-        { variant: 'mweb_xpromo_transparent_fp:control_1' },
-        { variant: 'mweb_xpromo_transparent_fp:control_2' },
-      ] },
-    ],
-  },
-  // As a temporary hack, we are showing the list treatment also to users
-  // bucketed into the control groups. We want to continue to get bucketing
-  // events, so we know when a user has been exposed to this feature, and we
-  // want to show 100% of users the list treatment. We can't eliminate control
-  // groups in the API's bucketing mechanism, so we use this hack instead.
-  [VARIANT_XPROMO_SUBREDDIT_TRANSPARENT]: {
-    and: [
-      { allowedDevices: [IPHONE, ANDROID] },
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { or: [
-        { url: 'xpromosubreddittransparent' },
-        { variant: 'mweb_xpromo_transparent_listing:transparent' },
-        { variant: 'mweb_xpromo_transparent_listing:control_1' },
-        { variant: 'mweb_xpromo_transparent_listing:control_2' },
-      ] },
-    ],
   },
   [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS]: {
     and: [
