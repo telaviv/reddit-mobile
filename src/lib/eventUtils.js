@@ -107,7 +107,7 @@ function trackScreenViewEvent(state, additionalEventData) {
 
 export function trackXPromoEvent(state, eventType, additionalEventData) {
   let experimentPayload = {};
-  if (isPartOfXPromoExperiment(state)) {
+  if (isPartOfXPromoExperiment(state) && currentXPromoExperimentData(state)) {
     const { experiment_name, variant } = currentXPromoExperimentData(state);
     experimentPayload = { experiment_name, experiment_variant: variant };
   }

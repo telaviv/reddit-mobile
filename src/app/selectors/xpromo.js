@@ -18,14 +18,14 @@ const {
 } = flagConstants;
 
 const EXPERIMENT_NAMES = {
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS]: 'mweb_xpromo_require_login_fp_ios',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID]: 'mweb_xpromo_require_login_fp_android',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS]: 'mweb_xpromo_require_login_listing_ios',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID]: 'mweb_xpromo_require_login_listing_android',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS_CONTROL]: 'mweb_xpromo_require_login_fp_ios',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID_CONTROL]: 'mweb_xpromo_require_login_fp_android',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL]: 'mweb_xpromo_require_login_listing_ios',
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: 'mweb_xpromo_require_login_listing_android',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS]: 'mweb_xpromo_require_login_fp_ios_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID]: 'mweb_xpromo_require_login_fp_android_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS]: 'mweb_xpromo_require_login_listing_ios_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID]: 'mweb_xpromo_require_login_listing_android_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS_CONTROL]: 'mweb_xpromo_require_login_fp_ios_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID_CONTROL]: 'mweb_xpromo_require_login_fp_android_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL]: 'mweb_xpromo_require_login_listing_ios_v2',
+  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: 'mweb_xpromo_require_login_listing_android_v2',
 };
 
 export function xpromoIsEnabledOnPage(state) {
