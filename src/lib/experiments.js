@@ -8,7 +8,7 @@ export function extractUser(state) {
 export function getExperimentData(state, experimentName) {
   const user = extractUser(state);
   if (!user || !user.features[experimentName]) {
-    return {};
+    return null;
   }
   return user.features[experimentName];
 }
