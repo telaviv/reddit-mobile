@@ -13,5 +13,5 @@ export function getExperimentData(state, experimentName) {
   return {
     ...user.features[experimentName],
     experiment_name: experimentName,
-  }
+  };
 }
