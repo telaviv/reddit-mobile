@@ -5,6 +5,7 @@ import features from 'app/featureFlags';
 import getSubreddit from 'lib/getSubredditFromState';
 import getRouteMetaFromState from 'lib/getRouteMetaFromState';
 import { getExperimentData } from 'lib/experiments';
+import { getDevice, IPHONE, ANDROID } from 'lib/getDeviceFromState';
 
 const {
   VARIANT_XPROMO_LOGIN_REQUIRED_IOS,
@@ -24,6 +25,13 @@ export function xpromoIsEnabledOnPage(state) {
   const routeMeta = getRouteMetaFromState(state);
   const actionName = routeMeta && routeMeta.name;
   return actionName === 'index' || (actionName === 'listing' && !isNSFWPage(state));
+}
+
+export function xpromoIsEnabledOnDevice(state) {
+  const device = getDevice(state);
+  // If we don't know what device we're on, then we should not match any list
+  // of allowed devices.
+  return (!!device) && [ANDROID, IPHONE].includes(device);
 }
 
 function isNSFWPage(state) {
@@ -54,7 +62,9 @@ export function loginRequiredEnabled(state) {
 }
 
 export function shouldShowXPromo(state) {
-  return state.smartBanner.showBanner && xpromoIsEnabledOnPage(state);
+  return state.smartBanner.showBanner &&
+    xpromoIsEnabledOnPage(state) &&
+    xpromoIsEnabledOnDevice(state);
 }
 
 function loginExperimentName(state) {

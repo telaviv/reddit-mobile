@@ -148,7 +148,7 @@ const config = {
       { allowNSFW: false },
       { allowedPages: ['index', 'listing'] },
       { or: [
-        { url: 'xpromofploginrequired' },
+        { url: 'xpromologinrequired' },
         { variant: 'mweb_xpromo_require_login_ios:login_required' },
       ] },
     ],
@@ -159,8 +159,8 @@ const config = {
       { allowNSFW: false },
       { allowedPages: ['index', 'listing'] },
       { or: [
-        { variant: 'mweb_xpromo_require_login_fp_ios:control_1' },
-        { variant: 'mweb_xpromo_require_login_fp_ios:control_2' },
+        { variant: 'mweb_xpromo_require_login_ios:control_1' },
+        { variant: 'mweb_xpromo_require_login_ios:control_2' },
       ] },
     ],
   },
@@ -170,8 +170,8 @@ const config = {
       { allowNSFW: false },
       { allowedPages: ['index', 'listing'] },
       { or: [
-        { url: 'xpromofploginrequired' },
-        { variant: 'mweb_xpromo_require_login_fp_android:login_required' },
+        { url: 'xpromologinrequired' },
+        { variant: 'mweb_xpromo_require_login_android:login_required' },
       ] },
     ],
   },
@@ -181,8 +181,8 @@ const config = {
       { allowedPages: ['index', 'listing'] },
       { allowedDevices: [ANDROID] },
       { or: [
-        { variant: 'mweb_xpromo_require_login_fp_android:control_1' },
-        { variant: 'mweb_xpromo_require_login_fp_android:control_2' },
+        { variant: 'mweb_xpromo_require_login_android:control_1' },
+        { variant: 'mweb_xpromo_require_login_android:control_2' },
       ] },
     ],
   },
@@ -407,8 +407,8 @@ flags.addRule('allowNSFW', function(allowed) {
     return true;
   }
 
-  if (!subredditName) {
-    return false;
+  if (!subredditName) { // this happens for the front page.
+    return true;
   }
 
   const subredditInfo = subreddits[subredditName.toLowerCase()];

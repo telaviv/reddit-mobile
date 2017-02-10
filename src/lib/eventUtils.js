@@ -8,6 +8,7 @@ import {
   isPartOfXPromoExperiment,
   currentExperimentData as currentXPromoExperimentData,
   xpromoIsEnabledOnPage,
+  xpromoIsEnabledOnDevice,
 } from 'app/selectors/xpromo';
 import { isHidden } from 'lib/dom';
 import isFakeSubreddit from 'lib/isFakeSubreddit';
@@ -201,7 +202,7 @@ export function trackPageEvents(state, additionalEventData={}) {
   if (process.env.ENV === 'client') {
     gtmPageView(state);
     trackScreenViewEvent(state, additionalEventData);
-    if (xpromoIsEnabledOnPage(state)) {
+    if (xpromoIsEnabledOnPage(state) && xpromoIsEnabledOnDevice(state)) {
       trackXPromoInit(state, additionalEventData);
     }
   } else if (state.meta.crawler) {
