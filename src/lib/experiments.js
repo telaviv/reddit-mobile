@@ -10,5 +10,8 @@ export function getExperimentData(state, experimentName) {
   if (!user || !user.features[experimentName]) {
     return null;
   }
-  return user.features[experimentName];
+  return {
+    ...user.features[experimentName],
+    experiment_name: experimentName,
+  }
 }
