@@ -27,14 +27,10 @@ const {
   VARIANT_RECOMMENDED_BY_POST_HOT,
   VARIANT_RECOMMENDED_SIMILAR_POSTS,
   VARIANT_SUBREDDIT_HEADER,
-  VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS,
-  VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID,
-  VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS,
-  VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID,
-  VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS_CONTROL,
-  VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID_CONTROL,
-  VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL,
-  VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL,
+  VARIANT_XPROMO_LOGIN_REQUIRED_IOS,
+  VARIANT_XPROMO_LOGIN_REQUIRED_ANDROID,
+  VARIANT_XPROMO_LOGIN_REQUIRED_IOS_CONTROL,
+  VARIANT_XPROMO_LOGIN_REQUIRED_ANDROID_CONTROL,
   VARIANT_TITLE_EXPANDO,
   VARIANT_MIXED_VIEW,
   SHOW_AMP_LINK,
@@ -146,87 +142,47 @@ const config = {
       seoReferrer: true,
     }],
   },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS]: {
+  [VARIANT_XPROMO_LOGIN_REQUIRED_IOS]: {
     and: [
-      { allowedPages: ['index'] },
       { allowedDevices: [IPHONE] },
+      { allowNSFW: false },
+      { allowedPages: ['index', 'listing'] },
       { or: [
         { url: 'xpromofploginrequired' },
-        { variant: 'mweb_xpromo_require_login_fp_ios_v2:login_required' },
+        { variant: 'mweb_xpromo_require_login_ios:login_required' },
       ] },
     ],
   },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_IOS_CONTROL]: {
+  [VARIANT_XPROMO_LOGIN_REQUIRED_IOS_CONTROL]: {
     and: [
-      { allowedPages: ['index'] },
       { allowedDevices: [IPHONE] },
+      { allowNSFW: false },
+      { allowedPages: ['index', 'listing'] },
       { or: [
-        { variant: 'mweb_xpromo_require_login_fp_ios_v2:control_1' },
-        { variant: 'mweb_xpromo_require_login_fp_ios_v2:control_2' },
+        { variant: 'mweb_xpromo_require_login_fp_ios:control_1' },
+        { variant: 'mweb_xpromo_require_login_fp_ios:control_2' },
       ] },
     ],
   },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID]: {
+  [VARIANT_XPROMO_LOGIN_REQUIRED_ANDROID]: {
     and: [
-      { allowedPages: ['index'] },
       { allowedDevices: [ANDROID] },
+      { allowNSFW: false },
+      { allowedPages: ['index', 'listing'] },
       { or: [
         { url: 'xpromofploginrequired' },
-        { variant: 'mweb_xpromo_require_login_fp_android_v2:login_required' },
+        { variant: 'mweb_xpromo_require_login_fp_android:login_required' },
       ] },
     ],
   },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_FP_ANDROID_CONTROL]: {
+  [VARIANT_XPROMO_LOGIN_REQUIRED_ANDROID_CONTROL]: {
     and: [
-      { allowedPages: ['index'] },
+      { allowNSFW: false },
+      { allowedPages: ['index', 'listing'] },
       { allowedDevices: [ANDROID] },
       { or: [
-        { variant: 'mweb_xpromo_require_login_fp_android_v2:control_1' },
-        { variant: 'mweb_xpromo_require_login_fp_android_v2:control_2' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS]: {
-    and: [
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { allowedDevices: [IPHONE] },
-      { or: [
-        { url: 'xpromosubredditloginrequired' },
-        { variant: 'mweb_xpromo_require_login_listing_ios_v2:login_required' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_IOS_CONTROL]: {
-    and: [
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { allowedDevices: [IPHONE] },
-      { or: [
-        { variant: 'mweb_xpromo_require_login_listing_ios_v2:control_1' },
-        { variant: 'mweb_xpromo_require_login_listing_ios_v2:control_2' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID]: {
-    and: [
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { allowedDevices: [ANDROID] },
-      { or: [
-        { url: 'xpromosubredditloginrequired' },
-        { variant: 'mweb_xpromo_require_login_listing_android_v2:login_required' },
-      ] },
-    ],
-  },
-  [VARIANT_XPROMO_LOGIN_REQUIRED_SUBREDDIT_ANDROID_CONTROL]: {
-    and: [
-      { allowedPages: ['listing'] },
-      { allowNSFW: false },
-      { allowedDevices: [ANDROID] },
-      { or: [
-        { variant: 'mweb_xpromo_require_login_listing_android_v2:control_1' },
-        { variant: 'mweb_xpromo_require_login_listing_android_v2:control_2' },
+        { variant: 'mweb_xpromo_require_login_fp_android:control_1' },
+        { variant: 'mweb_xpromo_require_login_fp_android:control_2' },
       ] },
     ],
   },
