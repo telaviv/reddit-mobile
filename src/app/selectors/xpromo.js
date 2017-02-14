@@ -68,7 +68,7 @@ export function shouldShowXPromo(state) {
 }
 
 function loginExperimentName(state) {
-  if (!shouldShowXPromo(state)) {
+  if (!(shouldShowXPromo(state) && state.user.loggedOut)) {
     return null;
   }
   const featureContext = features.withContext({ state });
